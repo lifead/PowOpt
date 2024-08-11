@@ -4,6 +4,12 @@
     <ProjectReference Include="..\PowOpt.Core\PowOpt.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="projectData.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net8.0-windows</TargetFramework>

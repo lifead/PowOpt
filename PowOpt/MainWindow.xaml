@@ -6,22 +6,18 @@
         <!-- Определение строк и колонок для разметки -->
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <!-- Для меню -->
             <RowDefinition Height="*"/>
-            <!-- Для основного содержимого -->
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/>
-            <!-- Левая колонка для TreeView -->
             <ColumnDefinition Width="*"/>
-            <!-- Основное пространство для контента -->
         </Grid.ColumnDefinitions>
 
         <!-- Меню -->
         <Menu x:Name="MainMenu" Grid.Row="0" Grid.ColumnSpan="2" VerticalAlignment="Top">
             <MenuItem Header="Файл">
-                <MenuItem Header="Открыть проект" />
+                <MenuItem Header="Открыть проект" Command="{Binding OpenProjectCommand}" />
                 <MenuItem Header="Сохранить проект" />
                 <Separator/>
                 <MenuItem Header="Выход" />
@@ -35,11 +31,8 @@
         <Grid Grid.Row="1" Grid.Column="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
-                <!-- Для заголовка -->
                 <RowDefinition Height="*"/>
-                <!-- Для TreeView -->
                 <RowDefinition Height="Auto"/>
-                <!-- Для кнопки -->
             </Grid.RowDefinitions>
 
             <!-- Заголовок -->
@@ -47,27 +40,9 @@
 
             <!-- TreeView -->
             <TreeView x:Name="NavigationTreeView" Grid.Row="1">
-                <TreeViewItem Header="Параметры">
-                    <TreeViewItem Header="Параметр 1"/>
-                    <TreeViewItem Header="Параметр 2"/>
-                    <TreeViewItem Header="Параметр 3"/>
-                    <TreeViewItem Header="Параметр 4"/>
-                    <TreeViewItem Header="Параметр 5"/>
-                </TreeViewItem>
-                <TreeViewItem Header="Формулы">
-                    <TreeViewItem Header="Формула 1"/>
-                    <TreeViewItem Header="Формула 2"/>
-                    <TreeViewItem Header="Формула 3"/>
-                    <TreeViewItem Header="Формула 4"/>
-                    <TreeViewItem Header="Формула 5"/>
-                </TreeViewItem>
-                <TreeViewItem Header="Графики">
-                    <TreeViewItem Header="График 1"/>
-                    <TreeViewItem Header="График 2"/>
-                    <TreeViewItem Header="График 3"/>
-                    <TreeViewItem Header="График 4"/>
-                    <TreeViewItem Header="График 5"/>
-                </TreeViewItem>
+                <TreeViewItem Header="Параметры" ItemsSource="{Binding Parameters}"/>
+                <TreeViewItem Header="Формулы" ItemsSource="{Binding Formulas}"/>
+                <TreeViewItem Header="Графики" ItemsSource="{Binding Charts}"/>
             </TreeView>
 
             <!-- Кнопка для редактирования параметров -->
@@ -80,6 +55,5 @@
                        VerticalAlignment="Center" HorizontalAlignment="Center"
                        FontSize="16" FontWeight="Bold" Foreground="Gray"/>
         </Border>
-
     </Grid>
 </Window>

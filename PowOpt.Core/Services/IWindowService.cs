@@ -1,12 +1,13 @@
-﻿using PowOpt.Core.ViewModels;
-using System.Collections.ObjectModel;
-using PowOpt.Core.Models;
+﻿using PowOpt.Core.Models;
 using PowOpt.Core.Repositories;
+using PowOpt.Core.ViewModels;
+using System.Collections.ObjectModel;
 
 namespace PowOpt.Core.Services
 {
     public interface IWindowService
     {
+        void ShowEditMatrixWindow(); // Новый метод
         void ShowEditParameterWindow(ParameterViewModel parameter,
                                      ObservableCollection<GroupViewModel> availableGroups,
                                      ObservableCollection<ParameterTypeDbo> availableTypes,

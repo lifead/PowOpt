@@ -8,6 +8,12 @@ namespace PowOpt.Services
 {
     public class WindowService : IWindowService
     {
+        public void ShowEditMatrixWindow()
+        {
+            var editMatrixWindow = new EditMatrixWindow();
+            editMatrixWindow.ShowDialog();
+        }
+
         public void ShowEditParameterWindow(ParameterViewModel parameter,
                                             ObservableCollection<GroupViewModel> availableGroups,
                                             ObservableCollection<ParameterTypeDbo> availableTypes,

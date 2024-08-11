@@ -3,7 +3,6 @@ using PowOpt.Core.Repositories;
 using PowOpt.Core.Services;
 using ReactiveUI;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Reactive;
 
 namespace PowOpt.Core.ViewModels
@@ -27,6 +26,7 @@ namespace PowOpt.Core.ViewModels
 
         public ReactiveCommand<Unit, Unit> OpenProjectCommand { get; }
         public ReactiveCommand<Unit, Unit> EditParameterCommand { get; }
+        public ReactiveCommand<Unit, Unit> EditMatrixCommand { get; }
 
         public MainViewModel(IProjectRepository projectRepository,
                              DataTransformationService dataTransformationService,
@@ -41,6 +41,7 @@ namespace PowOpt.Core.ViewModels
 
             OpenProjectCommand = ReactiveCommand.Create(OpenProject);
             EditParameterCommand = ReactiveCommand.Create(EditParameter);
+            EditMatrixCommand = ReactiveCommand.Create(OpenEditMatrixWindow);
         }
 
         private void OpenProject()
@@ -70,9 +71,26 @@ namespace PowOpt.Core.ViewModels
         {
             if (SelectedParameter == null) return;
 
-            _windowService.ShowEditParameterWindow(SelectedParameter, DisplayGroups, ParameterTypes, _projectRepository, "projectData.json", _projectRepository.LoadProject("projectData.json"));
+            // Загружаем текущие данные проекта для редактирования
+            var projectData = _projectRepository.LoadProject("projectData.json");
 
-            OpenProject(); // Перезагрузить данные после редактирования
+            // Открываем окно редактирования параметра
+            _windowService.ShowEditParameterWindow(
+                SelectedParameter,
+                DisplayGroups,
+                ParameterTypes,
+                _projectRepository,
+                "projectData.json",
+                projectData
+            );
+
+            // Перезагружаем данные после редактирования
+            OpenProject();
+        }
+
+        private void OpenEditMatrixWindow()
+        {
+            _windowService.ShowEditMatrixWindow();
         }
     }
 }

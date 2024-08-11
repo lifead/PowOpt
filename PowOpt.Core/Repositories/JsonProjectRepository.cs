@@ -19,5 +19,19 @@ namespace PowOpt.Core.Repositories
             var json = JsonSerializer.Serialize(projectData, new JsonSerializerOptions { WriteIndented = true });
             File.WriteAllText(filePath, json);
         }
+
+        public MatrixDataDbo LoadMatrixData(string filePath)
+        {
+            if (!File.Exists(filePath)) return null;
+
+            var json = File.ReadAllText(filePath);
+            return JsonSerializer.Deserialize<MatrixDataDbo>(json);
+        }
+
+        public void SaveMatrixData(string filePath, MatrixDataDbo matrixData)
+        {
+            var json = JsonSerializer.Serialize(matrixData, new JsonSerializerOptions { WriteIndented = true });
+            File.WriteAllText(filePath, json);
+        }
     }
 }

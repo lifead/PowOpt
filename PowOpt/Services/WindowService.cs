@@ -1,8 +1,8 @@
-﻿using PowOpt.Core.Services;
+﻿using PowOpt.Core.Models;
+using PowOpt.Core.Repositories;
+using PowOpt.Core.Services;
 using PowOpt.Core.ViewModels;
 using System.Collections.ObjectModel;
-using PowOpt.Core.Models;
-using PowOpt.Core.Repositories;
 
 namespace PowOpt.Services
 {
@@ -10,7 +10,8 @@ namespace PowOpt.Services
     {
         public void ShowEditMatrixWindow()
         {
-            var editMatrixWindow = new EditMatrixWindow();
+            var matrixViewModel = new EditMatrixViewModel(new JsonProjectRepository(), "matrixData.json");
+            var editMatrixWindow = new EditMatrixWindow(matrixViewModel);
             editMatrixWindow.ShowDialog();
         }
 

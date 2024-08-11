@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PowOpt.Core.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,10 @@ namespace PowOpt
     /// </summary>
     public partial class EditMatrixWindow : Window
     {
-        public EditMatrixWindow()
+        public EditMatrixWindow(EditMatrixViewModel viewModel)
         {
             InitializeComponent();
+            DataContext = viewModel;
         }
     }
 }

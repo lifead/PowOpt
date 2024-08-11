@@ -1,19 +1,36 @@
-﻿using System.Collections.ObjectModel;
-using System.Windows.Input;
-using PowOpt.Core.Models;
-using PowOpt.Core.Repositories;
+﻿using PowOpt.Core.Repositories;
+using ReactiveUI;
+using System.Collections.ObjectModel;
+using System.Reactive;
 
 namespace PowOpt.Core.ViewModels
 {
-    public class MainViewModel : BaseViewModel
+    public class MainViewModel : ReactiveObject
     {
         private readonly IProjectRepository _projectRepository;
 
-        public ObservableCollection<string> Parameters { get; set; }
-        public ObservableCollection<string> Formulas { get; set; }
-        public ObservableCollection<string> Charts { get; set; }
+        private ObservableCollection<string> _parameters;
+        public ObservableCollection<string> Parameters
+        {
+            get => _parameters;
+            set => this.RaiseAndSetIfChanged(ref _parameters, value);
+        }
 
-        public ICommand OpenProjectCommand { get; }
+        private ObservableCollection<string> _formulas;
+        public ObservableCollection<string> Formulas
+        {
+            get => _formulas;
+            set => this.RaiseAndSetIfChanged(ref _formulas, value);
+        }
+
+        private ObservableCollection<string> _charts;
+        public ObservableCollection<string> Charts
+        {
+            get => _charts;
+            set => this.RaiseAndSetIfChanged(ref _charts, value);
+        }
+
+        public ReactiveCommand<Unit, Unit> OpenProjectCommand { get; }
 
         public MainViewModel(IProjectRepository projectRepository)
         {
@@ -23,7 +40,7 @@ namespace PowOpt.Core.ViewModels
             Formulas = new ObservableCollection<string>();
             Charts = new ObservableCollection<string>();
 
-            OpenProjectCommand = new RelayCommand(OpenProject);
+            OpenProjectCommand = ReactiveCommand.Create(OpenProject);
         }
 
         private void OpenProject()

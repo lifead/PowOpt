@@ -2,20 +2,22 @@
 using PowOpt.Core.ViewModels;
 using System.Windows;
 
-namespace PowOpt;
-
-/// <summary>
-/// Interaction logic for MainWindow.xaml
-/// </summary>
-public partial class MainWindow : Window
+namespace PowOpt
 {
-    public MainWindow()
+    public partial class MainWindow : Window
     {
-        InitializeComponent();
-        // Создаем репозиторий
-        var projectRepository = new JsonProjectRepository();
+        public MainWindow()
+        {
+            InitializeComponent();
 
-        // Передаем репозиторий в ViewModel
-        DataContext = new MainViewModel(projectRepository);
+            // Создание репозитория вручную
+            var projectRepository = new JsonProjectRepository();
+
+            // Создание ViewModel с передачей репозитория
+            var mainViewModel = new MainViewModel(projectRepository);
+
+            // Установка DataContext
+            DataContext = mainViewModel;
+        }
     }
 }

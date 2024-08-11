@@ -31,30 +31,48 @@
             </MenuItem>
         </Menu>
 
-        <!-- TreeView в левой колонке -->
-        <TreeView x:Name="NavigationTreeView" Grid.Row="1" Grid.Column="0">
-            <TreeViewItem Header="Параметры">
-                <TreeViewItem Header="Параметр 1"/>
-                <TreeViewItem Header="Параметр 2"/>
-                <TreeViewItem Header="Параметр 3"/>
-                <TreeViewItem Header="Параметр 4"/>
-                <TreeViewItem Header="Параметр 5"/>
-            </TreeViewItem>
-            <TreeViewItem Header="Формулы">
-                <TreeViewItem Header="Формула 1"/>
-                <TreeViewItem Header="Формула 2"/>
-                <TreeViewItem Header="Формула 3"/>
-                <TreeViewItem Header="Формула 4"/>
-                <TreeViewItem Header="Формула 5"/>
-            </TreeViewItem>
-            <TreeViewItem Header="Графики">
-                <TreeViewItem Header="График 1"/>
-                <TreeViewItem Header="График 2"/>
-                <TreeViewItem Header="График 3"/>
-                <TreeViewItem Header="График 4"/>
-                <TreeViewItem Header="График 5"/>
-            </TreeViewItem>
-        </TreeView>
+        <!-- Левый блок с заголовком, TreeView и кнопкой -->
+        <Grid Grid.Row="1" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <!-- Для заголовка -->
+                <RowDefinition Height="*"/>
+                <!-- Для TreeView -->
+                <RowDefinition Height="Auto"/>
+                <!-- Для кнопки -->
+            </Grid.RowDefinitions>
+
+            <!-- Заголовок -->
+            <TextBlock Text="Параметры" FontSize="16" FontWeight="Bold" Margin="5" Grid.Row="0"/>
+
+            <!-- TreeView -->
+            <TreeView x:Name="NavigationTreeView" Grid.Row="1">
+                <TreeViewItem Header="Параметры">
+                    <TreeViewItem Header="Параметр 1"/>
+                    <TreeViewItem Header="Параметр 2"/>
+                    <TreeViewItem Header="Параметр 3"/>
+                    <TreeViewItem Header="Параметр 4"/>
+                    <TreeViewItem Header="Параметр 5"/>
+                </TreeViewItem>
+                <TreeViewItem Header="Формулы">
+                    <TreeViewItem Header="Формула 1"/>
+                    <TreeViewItem Header="Формула 2"/>
+                    <TreeViewItem Header="Формула 3"/>
+                    <TreeViewItem Header="Формула 4"/>
+                    <TreeViewItem Header="Формула 5"/>
+                </TreeViewItem>
+                <TreeViewItem Header="Графики">
+                    <TreeViewItem Header="График 1"/>
+                    <TreeViewItem Header="График 2"/>
+                    <TreeViewItem Header="График 3"/>
+                    <TreeViewItem Header="График 4"/>
+                    <TreeViewItem Header="График 5"/>
+                </TreeViewItem>
+            </TreeView>
+
+            <!-- Кнопка для редактирования параметров -->
+            <Button Content="Редактировать параметры" Grid.Row="2" Margin="5" Padding="5" HorizontalAlignment="Stretch"/>
+        </Grid>
 
         <!-- Правый блок для заполнения контентом -->
         <Border x:Name="ContentBorder" Grid.Row="1" Grid.Column="1" BorderBrush="Gray" BorderThickness="1" Margin="5">

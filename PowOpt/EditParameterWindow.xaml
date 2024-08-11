@@ -1,16 +1,38 @@
 ﻿<Window x:Class="PowOpt.EditParameterWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Редактировать параметр" Height="200" Width="400">
+        Title="Редактировать параметр" Height="350" Width="400">
+    <!-- Увеличили высоту на 100 пикселей -->
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <!-- Пустое пространство для сохранения свободного места после кнопки -->
+            <RowDefinition Height="Auto"/>
+            <!-- Строка для кнопки "Сохранить" -->
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Название параметра:" Margin="10" Grid.Row="0"/>
-        <TextBox Text="{Binding ParameterName}" Margin="10" Grid.Row="1"/>
+        <TextBlock Text="ID параметра:" Margin="10" Grid.Row="0"/>
+        <TextBlock Text="{Binding ParameterId}" Margin="10" Grid.Row="1"/>
 
-        <Button Content="Сохранить" Margin="10" Grid.Row="2" HorizontalAlignment="Right" Command="{Binding SaveCommand}" />
+        <TextBlock Text="Название параметра:" Margin="10" Grid.Row="2"/>
+        <TextBox Text="{Binding ParameterName}" Margin="10" Grid.Row="3"/>
+
+        <TextBlock Text="Группа:" Margin="10" Grid.Row="4"/>
+        <ComboBox ItemsSource="{Binding AvailableGroups}" 
+                  SelectedItem="{Binding SelectedGroup}" 
+                  DisplayMemberPath="GroupName"
+                  Margin="10" Grid.Row="5"/>
+
+        <!-- Пустое пространство, чтобы кнопка не растягивалась -->
+        <TextBlock Grid.Row="6"/>
+
+        <!-- Кнопка сохранения на новой строке -->
+        <Button Content="Сохранить" Margin="10" Grid.Row="7" HorizontalAlignment="Right" Command="{Binding SaveCommand}" />
     </Grid>
 </Window>

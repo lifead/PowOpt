@@ -61,7 +61,7 @@ namespace PowOpt.Core.ViewModels
         {
             if (SelectedParameter == null) return;
 
-            _windowService.ShowEditParameterWindow(SelectedParameter);
+            _windowService.ShowEditParameterWindow(SelectedParameter, DisplayGroups);
         }
     }
 }

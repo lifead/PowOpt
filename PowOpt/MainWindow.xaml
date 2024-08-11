@@ -1,12 +1,67 @@
 ﻿<Window x:Class="PowOpt.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PowOpt"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="PowOpt" Height="500" Width="1200">
     <Grid>
+        <!-- Определение строк и колонок для разметки -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Для меню -->
+            <RowDefinition Height="*"/>
+            <!-- Для основного содержимого -->
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <!-- Левая колонка для TreeView -->
+            <ColumnDefinition Width="*"/>
+            <!-- Основное пространство для контента -->
+        </Grid.ColumnDefinitions>
+
+        <!-- Меню -->
+        <Menu x:Name="MainMenu" Grid.Row="0" Grid.ColumnSpan="2" VerticalAlignment="Top">
+            <MenuItem Header="Файл">
+                <MenuItem Header="Открыть проект" />
+                <MenuItem Header="Сохранить проект" />
+                <Separator/>
+                <MenuItem Header="Выход" />
+            </MenuItem>
+            <MenuItem Header="Справка">
+                <MenuItem Header="О программе"/>
+            </MenuItem>
+        </Menu>
+
+        <!-- TreeView в левой колонке -->
+        <TreeView x:Name="NavigationTreeView" Grid.Row="1" Grid.Column="0">
+            <TreeViewItem Header="Параметры">
+                <TreeViewItem Header="Параметр 1"/>
+                <TreeViewItem Header="Параметр 2"/>
+                <TreeViewItem Header="Параметр 3"/>
+                <TreeViewItem Header="Параметр 4"/>
+                <TreeViewItem Header="Параметр 5"/>
+            </TreeViewItem>
+            <TreeViewItem Header="Формулы">
+                <TreeViewItem Header="Формула 1"/>
+                <TreeViewItem Header="Формула 2"/>
+                <TreeViewItem Header="Формула 3"/>
+                <TreeViewItem Header="Формула 4"/>
+                <TreeViewItem Header="Формула 5"/>
+            </TreeViewItem>
+            <TreeViewItem Header="Графики">
+                <TreeViewItem Header="График 1"/>
+                <TreeViewItem Header="График 2"/>
+                <TreeViewItem Header="График 3"/>
+                <TreeViewItem Header="График 4"/>
+                <TreeViewItem Header="График 5"/>
+            </TreeViewItem>
+        </TreeView>
+
+        <!-- Правый блок для заполнения контентом -->
+        <Border x:Name="ContentBorder" Grid.Row="1" Grid.Column="1" BorderBrush="Gray" BorderThickness="1" Margin="5">
+            <TextBlock Text="Это пространство для будущего контента"
+                       VerticalAlignment="Center" HorizontalAlignment="Center"
+                       FontSize="16" FontWeight="Bold" Foreground="Gray"/>
+        </Border>
 
     </Grid>
 </Window>

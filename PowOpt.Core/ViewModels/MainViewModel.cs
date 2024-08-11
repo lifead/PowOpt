@@ -1,4 +1,5 @@
-﻿using PowOpt.Core.Repositories;
+﻿using PowOpt.Core.Models;
+using PowOpt.Core.Repositories;
 using ReactiveUI;
 using System.Collections.ObjectModel;
 using System.Reactive;
@@ -9,25 +10,11 @@ namespace PowOpt.Core.ViewModels
     {
         private readonly IProjectRepository _projectRepository;
 
-        private ObservableCollection<string> _parameters;
-        public ObservableCollection<string> Parameters
+        private ObservableCollection<Group> _groups;
+        public ObservableCollection<Group> Groups
         {
-            get => _parameters;
-            set => this.RaiseAndSetIfChanged(ref _parameters, value);
-        }
-
-        private ObservableCollection<string> _formulas;
-        public ObservableCollection<string> Formulas
-        {
-            get => _formulas;
-            set => this.RaiseAndSetIfChanged(ref _formulas, value);
-        }
-
-        private ObservableCollection<string> _charts;
-        public ObservableCollection<string> Charts
-        {
-            get => _charts;
-            set => this.RaiseAndSetIfChanged(ref _charts, value);
+            get => _groups;
+            set => this.RaiseAndSetIfChanged(ref _groups, value);
         }
 
         public ReactiveCommand<Unit, Unit> OpenProjectCommand { get; }
@@ -36,9 +23,7 @@ namespace PowOpt.Core.ViewModels
         {
             _projectRepository = projectRepository;
 
-            Parameters = new ObservableCollection<string>();
-            Formulas = new ObservableCollection<string>();
-            Charts = new ObservableCollection<string>();
+            Groups = new ObservableCollection<Group>();
 
             OpenProjectCommand = ReactiveCommand.Create(OpenProject);
         }
@@ -50,23 +35,11 @@ namespace PowOpt.Core.ViewModels
 
             if (data != null)
             {
-                Parameters.Clear();
-                Formulas.Clear();
-                Charts.Clear();
+                Groups.Clear();
 
-                foreach (var param in data.Parameters)
+                foreach (var group in data.Groups)
                 {
-                    Parameters.Add(param);
-                }
-
-                foreach (var formula in data.Formulas)
-                {
-                    Formulas.Add(formula);
-                }
-
-                foreach (var chart in data.Charts)
-                {
-                    Charts.Add(chart);
+                    Groups.Add(group);
                 }
             }
         }

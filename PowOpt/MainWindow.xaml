@@ -38,10 +38,17 @@
             <TextBlock Text="Параметры" FontSize="16" FontWeight="Bold" Margin="5" Grid.Row="0"/>
 
             <!-- TreeView -->
-            <TreeView x:Name="NavigationTreeView" Grid.Row="1">
-                <TreeViewItem Header="Параметры" ItemsSource="{Binding Parameters}"/>
-                <TreeViewItem Header="Формулы" ItemsSource="{Binding Formulas}"/>
-                <TreeViewItem Header="Графики" ItemsSource="{Binding Charts}"/>
+            <TreeView x:Name="NavigationTreeView" Grid.Row="1" ItemsSource="{Binding Groups}">
+                <TreeView.ItemTemplate>
+                    <HierarchicalDataTemplate ItemsSource="{Binding Items}">
+                        <TextBlock Text="{Binding GroupName}" FontWeight="Bold" />
+                        <HierarchicalDataTemplate.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}" />
+                            </DataTemplate>
+                        </HierarchicalDataTemplate.ItemTemplate>
+                    </HierarchicalDataTemplate>
+                </TreeView.ItemTemplate>
             </TreeView>
 
             <!-- Кнопка для редактирования параметров -->

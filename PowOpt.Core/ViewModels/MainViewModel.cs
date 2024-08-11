@@ -1,11 +1,11 @@
-﻿using System.Collections.ObjectModel;
-using System.Windows.Input;
-using PowOpt.Core.Models;
+﻿using GalaSoft.MvvmLight;
 using PowOpt.Core.Repositories;
+using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace PowOpt.Core.ViewModels
 {
-    public class MainViewModel : BaseViewModel
+    public class MainViewModel : ViewModelBase
     {
         private readonly IProjectRepository _projectRepository;
 

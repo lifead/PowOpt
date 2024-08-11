@@ -90,7 +90,8 @@ namespace PowOpt.Core.ViewModels
 
         private void OpenEditMatrixWindow()
         {
-            _windowService.ShowEditMatrixWindow();
+            string matrixFilePath = "matrixData.json"; // Укажите путь к файлу данных матрицы
+            _windowService.ShowEditMatrixWindow(matrixFilePath);
         }
     }
 }

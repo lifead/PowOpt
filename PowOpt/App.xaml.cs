@@ -31,9 +31,10 @@ namespace PowOpt
         {
             // Регистрация зависимостей
             services.AddSingleton<IProjectRepository, JsonProjectRepository>();
-            services.AddSingleton<IWindowService, WindowService>(); // Регистрация WindowService
-            services.AddSingleton<DataTransformationService>();
+            services.AddSingleton<DataTransformationService>(); // Регистрация DataTransformationService
             services.AddSingleton<MainViewModel>();
+            services.AddSingleton<EditMatrixViewModel>();
+            services.AddSingleton<IWindowService, WindowService>();
 
             // Регистрация главного окна
             services.AddTransient<MainWindow>(provider =>

@@ -1,17 +1,31 @@
-﻿using PowOpt.Core.Models;
-using PowOpt.Core.Repositories;
-using PowOpt.Core.Services;
+﻿using PowOpt.Core.Services;
 using PowOpt.Core.ViewModels;
+using Microsoft.Extensions.DependencyInjection;
+using PowOpt.Core.Models;
+using PowOpt.Core.Repositories;
 using System.Collections.ObjectModel;
 
 namespace PowOpt.Services
 {
     public class WindowService : IWindowService
     {
-        public void ShowEditMatrixWindow()
+        private readonly IServiceProvider _serviceProvider;
+
+        public WindowService(IServiceProvider serviceProvider)
         {
-            var matrixViewModel = new EditMatrixViewModel(new JsonProjectRepository(), "matrixData.json");
-            var editMatrixWindow = new EditMatrixWindow(matrixViewModel);
+            _serviceProvider = serviceProvider;
+        }
+
+        public void ShowEditMatrixWindow(string filePath)
+        {
+            // Получаем экземпляр EditMatrixViewModel через DI
+            var editMatrixViewModel = _serviceProvider.GetRequiredService<EditMatrixViewModel>();
+
+            // Устанавливаем параметры ViewModel (например, путь к файлу)
+            editMatrixViewModel.FilePath = filePath;
+
+            // Создаем и показываем окно
+            var editMatrixWindow = new EditMatrixWindow(editMatrixViewModel);
             editMatrixWindow.ShowDialog();
         }
 

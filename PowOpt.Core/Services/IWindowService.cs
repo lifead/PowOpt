@@ -7,7 +7,7 @@ namespace PowOpt.Core.Services
 {
     public interface IWindowService
     {
-        void ShowEditMatrixWindow(); // Новый метод
+        void ShowEditMatrixWindow(string filePath); // Новый метод
         void ShowEditParameterWindow(ParameterViewModel parameter,
                                      ObservableCollection<GroupViewModel> availableGroups,
                                      ObservableCollection<ParameterTypeDbo> availableTypes,

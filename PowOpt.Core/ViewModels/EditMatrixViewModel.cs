@@ -8,8 +8,18 @@ namespace PowOpt.Core.ViewModels
     public class EditMatrixViewModel : ReactiveObject
     {
         private readonly IProjectRepository _projectRepository;
-        private readonly string _filePath;
         private MatrixDataDbo _matrixData;
+
+        private string _filePath;
+        public string FilePath
+        {
+            get => _filePath;
+            set
+            {
+                _filePath = value;
+                LoadMatrixData();
+            }
+        }
 
         private int _rowCount;
         public int RowCount
@@ -27,18 +37,17 @@ namespace PowOpt.Core.ViewModels
 
         public ReactiveCommand<Unit, Unit> SaveCommand { get; }
 
-        public EditMatrixViewModel(IProjectRepository projectRepository, string filePath)
+        public EditMatrixViewModel(IProjectRepository projectRepository)
         {
             _projectRepository = projectRepository;
-            _filePath = filePath;
+            SaveCommand = ReactiveCommand.Create(Save);
+        }
 
-            // Загрузка данных матрицы
-            _matrixData = _projectRepository.LoadMatrixData(_filePath);
-
+        private void LoadMatrixData()
+        {
+            _matrixData = _projectRepository.LoadMatrixData(FilePath);
             RowCount = _matrixData?.RowCount ?? 0;
             ColumnCount = _matrixData?.ColumnCount ?? 0;
-
-            SaveCommand = ReactiveCommand.Create(Save);
         }
 
         private void Save()
@@ -46,7 +55,7 @@ namespace PowOpt.Core.ViewModels
             _matrixData.RowCount = RowCount;
             _matrixData.ColumnCount = ColumnCount;
 
-            _projectRepository.SaveMatrixData(_filePath, _matrixData);
+            _projectRepository.SaveMatrixData(FilePath, _matrixData);
         }
     }
 }

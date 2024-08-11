@@ -11,11 +11,14 @@
         public int Id { get; set; }
         public string ParameterName { get; set; }
         public int GroupId { get; set; }
+        public int TypeId { get; set; }  // Ссылка на идентификатор типа параметра
+        public string Value { get; set; } // Значение параметра
     }
 
     public class ProjectDataDbo
     {
         public List<GroupDbo> Groups { get; set; }
         public List<ParameterDbo> Parameters { get; set; }
+        public List<ParameterTypeDbo> ParameterTypes { get; set; }  // Новая коллекция для типов параметров
     }
 }

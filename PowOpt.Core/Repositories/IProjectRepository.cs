@@ -5,6 +5,6 @@ namespace PowOpt.Core.Repositories
     public interface IProjectRepository
     {
         ProjectDataDbo LoadProject(string filePath);
-        void SaveProject(string filePath, ProjectDataDbo projectData); // Добавляем метод для сохранения проекта
+        void SaveProject(string filePath, ProjectDataDbo projectData); // Метод для сохранения проекта
     }
 }

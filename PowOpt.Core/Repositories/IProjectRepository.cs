@@ -4,6 +4,6 @@ namespace PowOpt.Core.Repositories
 {
     public interface IProjectRepository
     {
-        ProjectData LoadProject(string filePath);
+        ProjectDataDbo LoadProject(string filePath);
     }
 }

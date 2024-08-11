@@ -6,7 +6,7 @@ namespace PowOpt.Core.Repositories
 {
     public class JsonProjectRepository : IProjectRepository
     {
-        public ProjectData LoadProject(string filePath)
+        public ProjectDataDbo LoadProject(string filePath)
         {
             if (!File.Exists(filePath))
             {
@@ -14,7 +14,7 @@ namespace PowOpt.Core.Repositories
             }
 
             string json = File.ReadAllText(filePath);
-            return JsonSerializer.Deserialize<ProjectData>(json);
+            return JsonSerializer.Deserialize<ProjectDataDbo>(json);
         }
     }
 }

@@ -1,7 +1,9 @@
 ﻿using PowOpt.Core.Models;
 using PowOpt.Core.Repositories;
+using PowOpt.Core.Services;
 using ReactiveUI;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Reactive;
 
 namespace PowOpt.Core.ViewModels
@@ -9,21 +11,23 @@ namespace PowOpt.Core.ViewModels
     public class MainViewModel : ReactiveObject
     {
         private readonly IProjectRepository _projectRepository;
+        private readonly DataTransformationService _dataTransformationService;
 
-        private ObservableCollection<Group> _groups;
-        public ObservableCollection<Group> Groups
+        private ObservableCollection<GroupViewModel> _displayGroups;
+        public ObservableCollection<GroupViewModel> DisplayGroups
         {
-            get => _groups;
-            set => this.RaiseAndSetIfChanged(ref _groups, value);
+            get => _displayGroups;
+            set => this.RaiseAndSetIfChanged(ref _displayGroups, value);
         }
 
         public ReactiveCommand<Unit, Unit> OpenProjectCommand { get; }
 
-        public MainViewModel(IProjectRepository projectRepository)
+        public MainViewModel(IProjectRepository projectRepository, DataTransformationService dataTransformationService)
         {
             _projectRepository = projectRepository;
+            _dataTransformationService = dataTransformationService;
 
-            Groups = new ObservableCollection<Group>();
+            DisplayGroups = new ObservableCollection<GroupViewModel>();
 
             OpenProjectCommand = ReactiveCommand.Create(OpenProject);
         }
@@ -35,11 +39,12 @@ namespace PowOpt.Core.ViewModels
 
             if (data != null)
             {
-                Groups.Clear();
+                var displayData = _dataTransformationService.TransformToViewModel(data);
 
-                foreach (var group in data.Groups)
+                DisplayGroups.Clear();
+                foreach (var group in displayData.Groups)
                 {
-                    Groups.Add(group);
+                    DisplayGroups.Add(group);
                 }
             }
         }

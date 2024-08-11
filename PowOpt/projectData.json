@@ -1,79 +1,53 @@
 {
   "Groups": [
     {
-      "GroupName": "Parameters",
-      "Items": [
-        {
-          "Id": 1,
-          "Name": "Параметр 1"
-        },
-        {
-          "Id": 2,
-          "Name": "Параметр 2"
-        },
-        {
-          "Id": 3,
-          "Name": "Параметр 3"
-        },
-        {
-          "Id": 4,
-          "Name": "Параметр 4"
-        },
-        {
-          "Id": 5,
-          "Name": "Параметр 5"
-        }
-      ]
+      "Id": 1,
+      "GroupName": "Parameters"
     },
     {
-      "GroupName": "Formulas",
-      "Items": [
-        {
-          "Id": 1,
-          "Name": "Формула 1"
-        },
-        {
-          "Id": 2,
-          "Name": "Формула 2"
-        },
-        {
-          "Id": 3,
-          "Name": "Формула 3"
-        },
-        {
-          "Id": 4,
-          "Name": "Формула 4"
-        },
-        {
-          "Id": 5,
-          "Name": "Формула 5"
-        }
-      ]
+      "Id": 2,
+      "GroupName": "Formulas"
     },
     {
-      "GroupName": "Charts",
-      "Items": [
-        {
-          "Id": 1,
-          "Name": "График 1"
-        },
-        {
-          "Id": 2,
-          "Name": "График 2"
-        },
-        {
-          "Id": 3,
-          "Name": "График 3"
-        },
-        {
-          "Id": 4,
-          "Name": "График 4"
-        },
-        {
-          "Id": 5,
-          "Name": "График 5"
-        }
-      ]
+      "Id": 3,
+      "GroupName": "Charts"
+    }
+  ],
+  "Parameters": [
+    {
+      "Id": 1,
+      "ParameterName": "Параметр 1",
+      "GroupId": 1
+    },
+    {
+      "Id": 2,
+      "ParameterName": "Параметр 2",
+      "GroupId": 1
+    },
+    {
+      "Id": 3,
+      "ParameterName": "Параметр 3",
+      "GroupId": 1
+    },
+    {
+      "Id": 4,
+      "ParameterName": "Формула 1",
+      "GroupId": 2
+    },
+    {
+      "Id": 5,
+      "ParameterName": "Формула 2",
+      "GroupId": 2
+    },
+    {
+      "Id": 6,
+      "ParameterName": "График 1",
+      "GroupId": 3
+    },
+    {
+      "Id": 7,
+      "ParameterName": "График 2",
+      "GroupId": 3
     }
   ]
 }

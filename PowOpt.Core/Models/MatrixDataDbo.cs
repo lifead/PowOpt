@@ -2,7 +2,21 @@
 {
     public class MatrixDataDbo
     {
-        public int RowCount { get; set; } // Количество строк
-        public int ColumnCount { get; set; } // Количество столбцов
+        public int RowCount { get; set; }
+        public int ColumnCount { get; set; }
+        public List<MatrixBlockDbo> Blocks { get; set; } // Список блоков
+    }
+
+    public class MatrixBlockDbo
+    {
+        public string FragmentName { get; set; }
+        public string TypeFragment { get; set; }
+        public int StartFragmentX { get; set; }
+        public int StartFragmentY { get; set; }
+        public int EndFragmentX { get; set; }
+        public int EndFragmentY { get; set; }
+        public string FormulaValues { get; set; }
+        public bool IsDiagonalMatrix { get; set; }
+        public List<List<int>> Values { get; set; } // Массив значений внутри блока
     }
 }

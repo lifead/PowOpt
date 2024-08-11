@@ -1,4 +1,65 @@
 {
   "RowCount": 5,
-  "ColumnCount": 5
+  "ColumnCount": 5,
+  "Blocks": [
+    {
+      "FragmentName": "A1",
+      "TypeFragment": "Standard",
+      "StartFragmentX": 0,
+      "StartFragmentY": 0,
+      "EndFragmentX": 0,
+      "EndFragmentY": 2,
+      "FormulaValues": "",
+      "IsDiagonalMatrix": false,
+      "Values": [
+        [ 2 ],
+        [ 1 ],
+        [ 2 ]
+      ]
+    },
+    {
+      "FragmentName": "A2",
+      "TypeFragment": "Standard",
+      "StartFragmentX": 1,
+      "StartFragmentY": 0,
+      "EndFragmentX": 1,
+      "EndFragmentY": 2,
+      "FormulaValues": "",
+      "IsDiagonalMatrix": false,
+      "Values": [
+        [ 4 ],
+        [ 1 ],
+        [ 1 ]
+      ]
+    },
+    {
+      "FragmentName": "CountItem",
+      "TypeFragment": "Standard",
+      "StartFragmentX": 2,
+      "StartFragmentY": 0,
+      "EndFragmentX": 2,
+      "EndFragmentY": 2,
+      "FormulaValues": "",
+      "IsDiagonalMatrix": false,
+      "Values": [
+        [ 560 ],
+        [ 170 ],
+        [ 300 ]
+      ]
+    },
+    {
+      "FragmentName": "AxCost",
+      "TypeFragment": "Standard",
+      "StartFragmentX": 0,
+      "StartFragmentY": 3,
+      "EndFragmentX": 1,
+      "EndFragmentY": 3,
+      "FormulaValues": "",
+      "IsDiagonalMatrix": false,
+      "Values": [
+        [ 4 ],
+        [ 5 ]
+      ]
+    }
+  ]
 }

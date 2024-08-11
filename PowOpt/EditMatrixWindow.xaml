@@ -5,20 +5,43 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <!-- Блок с динамической высотой -->
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Количество строк:" Margin="10" Grid.Row="0"/>
-        <TextBox Text="{Binding RowCount}" Margin="10" Grid.Row="1"/>
+        <!-- Строка с текстом и текстовым полем для строк и столбцов -->
+        <StackPanel Orientation="Horizontal" Margin="10" Grid.Row="0" HorizontalAlignment="Left">
+            <!-- Первый блок: Количество строк -->
+            <TextBlock Text="Количество строк:" Margin="0,0,10,0" VerticalAlignment="Center"/>
+            <TextBox Text="{Binding RowCount}" Width="50" Margin="0,0,30,0" VerticalAlignment="Center"/>
 
-        <TextBlock Text="Количество столбцов:" Margin="10" Grid.Row="2"/>
-        <TextBox Text="{Binding ColumnCount}" Margin="10" Grid.Row="3"/>
+            <!-- Второй блок: Количество столбцов -->
+            <TextBlock Text="Количество столбцов:" Margin="0,0,10,0" VerticalAlignment="Center"/>
+            <TextBox Text="{Binding ColumnCount}" Width="50" VerticalAlignment="Center"/>
+        </StackPanel>
+
+        <!-- Блок, разделенный на 2 части -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <!-- Левая часть, список -->
+                <ColumnDefinition Width="*"/>
+                <!-- Правая часть, пустая для дальнейшего использования -->
+            </Grid.ColumnDefinitions>
+
+            <!-- Список в левой части -->
+            <ListBox x:Name="LeftListBox" Grid.Column="0" Margin="10">
+                <ListBoxItem Content="Элемент 1"/>
+                <ListBoxItem Content="Элемент 2"/>
+                <ListBoxItem Content="Элемент 3"/>
+            </ListBox>
+
+            <!-- Правая часть (пока пустая) -->
+            <Border Grid.Column="1" BorderBrush="Gray" BorderThickness="1" Margin="10"/>
+        </Grid>
 
         <!-- Кнопка "Сохранить" -->
-        <Button Content="Сохранить" Margin="10" Padding="5" Grid.Row="4" HorizontalAlignment="Right" Command="{Binding SaveCommand}" />
+        <Button Content="Сохранить" Margin="10" Padding="5" Grid.Row="2" HorizontalAlignment="Right" Command="{Binding SaveCommand}" />
     </Grid>
 </Window>

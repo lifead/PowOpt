@@ -12,6 +12,7 @@ namespace PowOpt.Core.ViewModels
     {
         private readonly IProjectRepository _projectRepository;
         private readonly DataTransformationService _dataTransformationService;
+        private readonly IWindowService _windowService;
 
         private ObservableCollection<GroupViewModel> _displayGroups;
         public ObservableCollection<GroupViewModel> DisplayGroups
@@ -20,16 +21,23 @@ namespace PowOpt.Core.ViewModels
             set => this.RaiseAndSetIfChanged(ref _displayGroups, value);
         }
 
-        public ReactiveCommand<Unit, Unit> OpenProjectCommand { get; }
+        public ParameterViewModel SelectedParameter { get; set; }
 
-        public MainViewModel(IProjectRepository projectRepository, DataTransformationService dataTransformationService)
+        public ReactiveCommand<Unit, Unit> OpenProjectCommand { get; }
+        public ReactiveCommand<Unit, Unit> EditParameterCommand { get; }
+
+        public MainViewModel(IProjectRepository projectRepository,
+                             DataTransformationService dataTransformationService,
+                             IWindowService windowService)
         {
             _projectRepository = projectRepository;
             _dataTransformationService = dataTransformationService;
+            _windowService = windowService;
 
             DisplayGroups = new ObservableCollection<GroupViewModel>();
 
             OpenProjectCommand = ReactiveCommand.Create(OpenProject);
+            EditParameterCommand = ReactiveCommand.Create(EditParameter);
         }
 
         private void OpenProject()
@@ -47,6 +55,13 @@ namespace PowOpt.Core.ViewModels
                     DisplayGroups.Add(group);
                 }
             }
+        }
+
+        private void EditParameter()
+        {
+            if (SelectedParameter == null) return;
+
+            _windowService.ShowEditParameterWindow(SelectedParameter);
         }
     }
 }

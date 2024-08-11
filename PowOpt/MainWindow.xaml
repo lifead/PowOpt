@@ -40,7 +40,8 @@
             <TextBlock Text="Группы" FontSize="16" FontWeight="Bold" Margin="5" Grid.Row="0"/>
 
             <!-- TreeView -->
-            <TreeView x:Name="NavigationTreeView" Grid.Row="1" ItemsSource="{Binding DisplayGroups}">
+            <TreeView x:Name="NavigationTreeView" Grid.Row="1" ItemsSource="{Binding DisplayGroups}" 
+                      SelectedItemChanged="NavigationTreeView_SelectedItemChanged">
                 <TreeView.ItemTemplate>
                     <HierarchicalDataTemplate ItemsSource="{Binding Items}">
                         <TextBlock Text="{Binding GroupName}" FontWeight="Bold" />
@@ -54,7 +55,8 @@
             </TreeView>
 
             <!-- Кнопка для редактирования параметров -->
-            <Button Content="Редактировать параметры" Grid.Row="2" Margin="5" Padding="5" HorizontalAlignment="Stretch"/>
+            <Button Content="Редактировать параметры" Grid.Row="2" Margin="5" Padding="5" 
+                    HorizontalAlignment="Stretch" Command="{Binding EditParameterCommand}"/>
         </Grid>
 
         <!-- Правый блок для заполнения контентом -->

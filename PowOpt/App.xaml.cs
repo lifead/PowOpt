@@ -2,6 +2,7 @@
 using PowOpt.Core.Repositories;
 using PowOpt.Core.Services;
 using PowOpt.Core.ViewModels;
+using PowOpt.Services;
 using System;
 using System.Windows;
 
@@ -30,7 +31,8 @@ namespace PowOpt
         {
             // Регистрация зависимостей
             services.AddSingleton<IProjectRepository, JsonProjectRepository>();
-            services.AddSingleton<DataTransformationService>(); // Регистрация DataTransformationService
+            services.AddSingleton<IWindowService, WindowService>(); // Регистрация WindowService
+            services.AddSingleton<DataTransformationService>();
             services.AddSingleton<MainViewModel>();
 
             // Регистрация главного окна

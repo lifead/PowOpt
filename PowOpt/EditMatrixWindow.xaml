@@ -24,7 +24,7 @@
         <!-- Блок, разделенный на 2 части -->
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="200"/>
                 <!-- Левая часть, список с фиксированной шириной -->
                 <ColumnDefinition Width="*"/>
                 <!-- Правая часть -->
@@ -39,14 +39,14 @@
             <!-- Правая часть с выводом всех значений MatrixBlockDbo, разделенная по горизонтали -->
             <Grid x:Name="RightContent" Grid.Column="1" Margin="10">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <!-- Левая часть -->
+                    <ColumnDefinition Width="200"/>
+                    <!-- Левая часть с деталями блока -->
                     <ColumnDefinition Width="*"/>
                     <!-- Правая часть -->
                 </Grid.ColumnDefinitions>
 
                 <!-- Левая часть с деталями выделенного блока -->
-                <StackPanel Grid.Column="0" Margin="10">
+                <StackPanel x:Name="BlockDetailsPanel" Grid.Column="0" Margin="10">
                     <TextBlock Text="Fragment Name:" FontWeight="Bold"/>
                     <TextBox Text="{Binding SelectedMatrixBlock.FragmentName}" IsReadOnly="True" Margin="0,0,0,10"/>
 
@@ -73,7 +73,7 @@
                 </StackPanel>
 
                 <!-- Правая часть для будущего использования -->
-                <Border Grid.Column="1" BorderBrush="Gray" BorderThickness="1" Margin="10">
+                <Border x:Name="AdditionalContentPanel" Grid.Column="1" BorderBrush="Gray" BorderThickness="1" Margin="10">
                     <!-- Здесь можно добавить элементы или другой контент -->
                 </Border>
             </Grid>

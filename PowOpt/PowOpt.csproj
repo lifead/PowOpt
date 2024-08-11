@@ -9,6 +9,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="matrixData.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="projectData.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

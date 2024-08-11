@@ -1,8 +1,8 @@
-﻿using PowOpt.Core.Services;
-using PowOpt.Core.ViewModels;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using PowOpt.Core.Models;
 using PowOpt.Core.Repositories;
+using PowOpt.Core.Services;
+using PowOpt.Core.ViewModels;
 using System.Collections.ObjectModel;
 
 namespace PowOpt.Services
@@ -24,7 +24,7 @@ namespace PowOpt.Services
             // Устанавливаем параметры ViewModel (например, путь к файлу)
             editMatrixViewModel.FilePath = filePath;
 
-            // Создаем и показываем окно
+            // Создаем и показываем окно, передавая ViewModel через конструктор
             var editMatrixWindow = new EditMatrixWindow(editMatrixViewModel);
             editMatrixWindow.ShowDialog();
         }
@@ -36,9 +36,10 @@ namespace PowOpt.Services
                                             string filePath,
                                             ProjectDataDbo projectData)
         {
+            var editParameterViewModel = new EditParameterViewModel(parameter, availableGroups, availableTypes, projectRepository, filePath, projectData);
             var editParameterWindow = new EditParameterWindow
             {
-                DataContext = new EditParameterViewModel(parameter, availableGroups, availableTypes, projectRepository, filePath, projectData)
+                DataContext = editParameterViewModel
             };
 
             editParameterWindow.ShowDialog();

@@ -1,7 +1,7 @@
 {
   "RowCount": 5,
   "ColumnCount": 5,
-  "Blocks": [
+  "MatrixBlocks": [
     {
       "FragmentName": "A1",
       "TypeFragment": "Standard",

@@ -24,21 +24,59 @@
         <!-- Блок, разделенный на 2 части -->
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300"/>
+                <!-- Левая часть, список с фиксированной шириной -->
                 <ColumnDefinition Width="*"/>
-                <!-- Левая часть, список -->
-                <ColumnDefinition Width="*"/>
-                <!-- Правая часть, пустая для дальнейшего использования -->
+                <!-- Правая часть -->
             </Grid.ColumnDefinitions>
 
             <!-- Список в левой части -->
-            <ListBox x:Name="LeftListBox" Grid.Column="0" Margin="10">
-                <ListBoxItem Content="Элемент 1"/>
-                <ListBoxItem Content="Элемент 2"/>
-                <ListBoxItem Content="Элемент 3"/>
-            </ListBox>
+            <ListBox x:Name="LeftListBox" Grid.Column="0" Margin="10"
+                     ItemsSource="{Binding MatrixBlocks}"
+                     DisplayMemberPath="FragmentName"
+                     SelectedItem="{Binding SelectedMatrixBlock, Mode=TwoWay}"/>
 
-            <!-- Правая часть (пока пустая) -->
-            <Border Grid.Column="1" BorderBrush="Gray" BorderThickness="1" Margin="10"/>
+            <!-- Правая часть с выводом всех значений MatrixBlockDbo, разделенная по горизонтали -->
+            <Grid x:Name="RightContent" Grid.Column="1" Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <!-- Левая часть -->
+                    <ColumnDefinition Width="*"/>
+                    <!-- Правая часть -->
+                </Grid.ColumnDefinitions>
+
+                <!-- Левая часть с деталями выделенного блока -->
+                <StackPanel Grid.Column="0" Margin="10">
+                    <TextBlock Text="Fragment Name:" FontWeight="Bold"/>
+                    <TextBox Text="{Binding SelectedMatrixBlock.FragmentName}" IsReadOnly="True" Margin="0,0,0,10"/>
+
+                    <TextBlock Text="Type Fragment:" FontWeight="Bold"/>
+                    <TextBox Text="{Binding SelectedMatrixBlock.TypeFragment}" IsReadOnly="True" Margin="0,0,0,10"/>
+
+                    <TextBlock Text="Start Fragment X:" FontWeight="Bold"/>
+                    <TextBox Text="{Binding SelectedMatrixBlock.StartFragmentX}" IsReadOnly="True" Margin="0,0,0,10"/>
+
+                    <TextBlock Text="Start Fragment Y:" FontWeight="Bold"/>
+                    <TextBox Text="{Binding SelectedMatrixBlock.StartFragmentY}" IsReadOnly="True" Margin="0,0,0,10"/>
+
+                    <TextBlock Text="End Fragment X:" FontWeight="Bold"/>
+                    <TextBox Text="{Binding SelectedMatrixBlock.EndFragmentX}" IsReadOnly="True" Margin="0,0,0,10"/>
+
+                    <TextBlock Text="End Fragment Y:" FontWeight="Bold"/>
+                    <TextBox Text="{Binding SelectedMatrixBlock.EndFragmentY}" IsReadOnly="True" Margin="0,0,0,10"/>
+
+                    <TextBlock Text="Formula Values:" FontWeight="Bold"/>
+                    <TextBox Text="{Binding SelectedMatrixBlock.FormulaValues}" IsReadOnly="True" Margin="0,0,0,10"/>
+
+                    <TextBlock Text="Is Diagonal Matrix:" FontWeight="Bold"/>
+                    <CheckBox IsChecked="{Binding SelectedMatrixBlock.IsDiagonalMatrix}" IsEnabled="False"/>
+                </StackPanel>
+
+                <!-- Правая часть для будущего использования -->
+                <Border Grid.Column="1" BorderBrush="Gray" BorderThickness="1" Margin="10">
+                    <!-- Здесь можно добавить элементы или другой контент -->
+                </Border>
+            </Grid>
         </Grid>
 
         <!-- Кнопка "Сохранить" -->

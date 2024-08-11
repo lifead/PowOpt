@@ -4,8 +4,9 @@
     {
         public int RowCount { get; set; }
         public int ColumnCount { get; set; }
-        public List<MatrixBlockDbo> Blocks { get; set; } // Список блоков
+        public List<MatrixBlockDbo> MatrixBlocks { get; set; } // Переименованное поле
     }
+
 
     public class MatrixBlockDbo
     {

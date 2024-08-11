@@ -1,21 +1,24 @@
 ﻿using System.Collections.ObjectModel;
-using System.IO;
-using System.Text.Json;
 using System.Windows.Input;
 using PowOpt.Core.Models;
+using PowOpt.Core.Repositories;
 
 namespace PowOpt.Core.ViewModels
 {
     public class MainViewModel : BaseViewModel
     {
+        private readonly IProjectRepository _projectRepository;
+
         public ObservableCollection<string> Parameters { get; set; }
         public ObservableCollection<string> Formulas { get; set; }
         public ObservableCollection<string> Charts { get; set; }
 
         public ICommand OpenProjectCommand { get; }
 
-        public MainViewModel()
+        public MainViewModel(IProjectRepository projectRepository)
         {
+            _projectRepository = projectRepository;
+
             Parameters = new ObservableCollection<string>();
             Formulas = new ObservableCollection<string>();
             Charts = new ObservableCollection<string>();
@@ -25,14 +28,11 @@ namespace PowOpt.Core.ViewModels
 
         private void OpenProject()
         {
-            // Здесь вы можете реализовать открытие файла через диалоговое окно, но для простоты мы используем фиксированный путь
             string filePath = "projectData.json";
+            var data = _projectRepository.LoadProject(filePath);
 
-            if (File.Exists(filePath))
+            if (data != null)
             {
-                string json = File.ReadAllText(filePath);
-                var data = JsonSerializer.Deserialize<ProjectData>(json);
-
                 Parameters.Clear();
                 Formulas.Clear();
                 Charts.Clear();

@@ -1,4 +1,5 @@
-﻿using PowOpt.Core.ViewModels;
+﻿using PowOpt.Core.Repositories;
+using PowOpt.Core.ViewModels;
 using System.Windows;
 
 namespace PowOpt;
@@ -11,6 +12,10 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
-        DataContext = new MainViewModel();
+        // Создаем репозиторий
+        var projectRepository = new JsonProjectRepository();
+
+        // Передаем репозиторий в ViewModel
+        DataContext = new MainViewModel(projectRepository);
     }
 }

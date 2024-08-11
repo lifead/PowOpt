@@ -1,4 +1,5 @@
 ﻿using PowOpt.Core.Models;
+using PowOpt.Core.Repositories;
 using ReactiveUI;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -8,6 +9,11 @@ namespace PowOpt.Core.ViewModels
 {
     public class EditParameterViewModel : ReactiveObject
     {
+        private readonly IProjectRepository _projectRepository;
+        private readonly string _filePath;
+        private readonly ParameterViewModel _parameter;
+        private readonly ProjectDataDbo _projectData;
+
         private string _parameterName;
         public string ParameterName
         {
@@ -15,7 +21,7 @@ namespace PowOpt.Core.ViewModels
             set => this.RaiseAndSetIfChanged(ref _parameterName, value);
         }
 
-        public int ParameterId { get; }  // Добавляем свойство для отображения идентификатора
+        public int ParameterId { get; }
 
         private GroupViewModel _selectedGroup;
         public GroupViewModel SelectedGroup
@@ -28,9 +34,14 @@ namespace PowOpt.Core.ViewModels
 
         public ReactiveCommand<Unit, Unit> SaveCommand { get; }
 
-        public EditParameterViewModel(ParameterViewModel parameter, ObservableCollection<GroupViewModel> availableGroups)
+        public EditParameterViewModel(ParameterViewModel parameter, ObservableCollection<GroupViewModel> availableGroups, IProjectRepository projectRepository, string filePath, ProjectDataDbo projectData)
         {
-            ParameterId = parameter.Id;  // Устанавливаем значение идентификатора
+            _parameter = parameter;
+            _projectRepository = projectRepository;
+            _filePath = filePath;
+            _projectData = projectData;
+
+            ParameterId = parameter.Id;
             ParameterName = parameter.ParameterName;
             AvailableGroups = availableGroups;
 
@@ -42,8 +53,16 @@ namespace PowOpt.Core.ViewModels
 
         private void Save()
         {
-            // Логика сохранения параметра, например, обновление данных в базе или файле.
-            // Здесь нужно будет обновить группу и имя параметра в зависимости от измененных данных.
+            // Обновляем данные параметра
+            var parameterDbo = _projectData.Parameters.FirstOrDefault(p => p.Id == ParameterId);
+            if (parameterDbo != null)
+            {
+                parameterDbo.ParameterName = ParameterName;
+                parameterDbo.GroupId = SelectedGroup?.Id ?? parameterDbo.GroupId;
+            }
+
+            // Сохраняем изменения в файл
+            _projectRepository.SaveProject(_filePath, _projectData);
         }
     }
 }

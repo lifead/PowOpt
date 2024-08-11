@@ -1,11 +1,12 @@
-﻿using PowOpt.Core.Models;
-using PowOpt.Core.ViewModels;
+﻿using PowOpt.Core.ViewModels;
 using System.Collections.ObjectModel;
+using PowOpt.Core.Models;
+using PowOpt.Core.Repositories;
 
 namespace PowOpt.Core.Services
 {
     public interface IWindowService
     {
-        void ShowEditParameterWindow(ParameterViewModel parameter, ObservableCollection<GroupViewModel> availableGroups);
+        void ShowEditParameterWindow(ParameterViewModel parameter, ObservableCollection<GroupViewModel> availableGroups, IProjectRepository projectRepository, string filePath, ProjectDataDbo projectData);
     }
 }

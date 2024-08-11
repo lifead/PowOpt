@@ -61,7 +61,11 @@ namespace PowOpt.Core.ViewModels
         {
             if (SelectedParameter == null) return;
 
-            _windowService.ShowEditParameterWindow(SelectedParameter, DisplayGroups);
+            // Используем IWindowService для открытия окна редактирования
+            _windowService.ShowEditParameterWindow(SelectedParameter, DisplayGroups, _projectRepository, "projectData.json", _projectRepository.LoadProject("projectData.json"));
+
+            // Перезагрузка данных после сохранения (если требуется)
+            OpenProject();
         }
     }
 }

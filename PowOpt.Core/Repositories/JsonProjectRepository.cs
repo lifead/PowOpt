@@ -1,6 +1,6 @@
-﻿using PowOpt.Core.Models;
-using System.IO;
+﻿using System.IO;
 using System.Text.Json;
+using PowOpt.Core.Models;
 
 namespace PowOpt.Core.Repositories
 {
@@ -8,13 +8,16 @@ namespace PowOpt.Core.Repositories
     {
         public ProjectDataDbo LoadProject(string filePath)
         {
-            if (!File.Exists(filePath))
-            {
-                return null;
-            }
+            if (!File.Exists(filePath)) return null;
 
-            string json = File.ReadAllText(filePath);
+            var json = File.ReadAllText(filePath);
             return JsonSerializer.Deserialize<ProjectDataDbo>(json);
+        }
+
+        public void SaveProject(string filePath, ProjectDataDbo projectData)
+        {
+            var json = JsonSerializer.Serialize(projectData, new JsonSerializerOptions { WriteIndented = true });
+            File.WriteAllText(filePath, json);
         }
     }
 }

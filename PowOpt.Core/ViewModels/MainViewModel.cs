@@ -21,6 +21,8 @@ namespace PowOpt.Core.ViewModels
             set => this.RaiseAndSetIfChanged(ref _displayGroups, value);
         }
 
+        public ObservableCollection<ParameterTypeDbo> ParameterTypes { get; private set; }
+
         public ParameterViewModel SelectedParameter { get; set; }
 
         public ReactiveCommand<Unit, Unit> OpenProjectCommand { get; }
@@ -35,6 +37,7 @@ namespace PowOpt.Core.ViewModels
             _windowService = windowService;
 
             DisplayGroups = new ObservableCollection<GroupViewModel>();
+            ParameterTypes = new ObservableCollection<ParameterTypeDbo>();
 
             OpenProjectCommand = ReactiveCommand.Create(OpenProject);
             EditParameterCommand = ReactiveCommand.Create(EditParameter);
@@ -54,6 +57,12 @@ namespace PowOpt.Core.ViewModels
                 {
                     DisplayGroups.Add(group);
                 }
+
+                ParameterTypes.Clear();
+                foreach (var type in data.ParameterTypes)
+                {
+                    ParameterTypes.Add(type);
+                }
             }
         }
 
@@ -61,11 +70,9 @@ namespace PowOpt.Core.ViewModels
         {
             if (SelectedParameter == null) return;
 
-            // Используем IWindowService для открытия окна редактирования
-            _windowService.ShowEditParameterWindow(SelectedParameter, DisplayGroups, _projectRepository, "projectData.json", _projectRepository.LoadProject("projectData.json"));
+            _windowService.ShowEditParameterWindow(SelectedParameter, DisplayGroups, ParameterTypes, _projectRepository, "projectData.json", _projectRepository.LoadProject("projectData.json"));
 
-            // Перезагрузка данных после сохранения (если требуется)
-            OpenProject();
+            OpenProject(); // Перезагрузить данные после редактирования
         }
     }
 }

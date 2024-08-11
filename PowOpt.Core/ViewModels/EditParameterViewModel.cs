@@ -30,11 +30,31 @@ namespace PowOpt.Core.ViewModels
             set => this.RaiseAndSetIfChanged(ref _selectedGroup, value);
         }
 
+        private string _value;
+        public string Value
+        {
+            get => _value;
+            set => this.RaiseAndSetIfChanged(ref _value, value);
+        }
+
+        private int _selectedTypeId;
+        public int SelectedTypeId
+        {
+            get => _selectedTypeId;
+            set => this.RaiseAndSetIfChanged(ref _selectedTypeId, value);
+        }
+
         public ObservableCollection<GroupViewModel> AvailableGroups { get; }
+        public ObservableCollection<ParameterTypeDbo> AvailableTypes { get; }
 
         public ReactiveCommand<Unit, Unit> SaveCommand { get; }
 
-        public EditParameterViewModel(ParameterViewModel parameter, ObservableCollection<GroupViewModel> availableGroups, IProjectRepository projectRepository, string filePath, ProjectDataDbo projectData)
+        public EditParameterViewModel(ParameterViewModel parameter,
+                                      ObservableCollection<GroupViewModel> availableGroups,
+                                      ObservableCollection<ParameterTypeDbo> availableTypes,
+                                      IProjectRepository projectRepository,
+                                      string filePath,
+                                      ProjectDataDbo projectData)
         {
             _parameter = parameter;
             _projectRepository = projectRepository;
@@ -43,22 +63,26 @@ namespace PowOpt.Core.ViewModels
 
             ParameterId = parameter.Id;
             ParameterName = parameter.ParameterName;
+            Value = parameter.Value;
             AvailableGroups = availableGroups;
+            AvailableTypes = availableTypes;
 
-            // Найти и установить выбранную группу по GroupId
             SelectedGroup = AvailableGroups.FirstOrDefault(g => g.Id == parameter.GroupId);
+            SelectedTypeId = parameter.TypeId;
 
             SaveCommand = ReactiveCommand.Create(Save);
         }
 
         private void Save()
         {
-            // Обновляем данные параметра
+            // Обновляем данные параметра в исходной структуре данных (ProjectDataDbo)
             var parameterDbo = _projectData.Parameters.FirstOrDefault(p => p.Id == ParameterId);
             if (parameterDbo != null)
             {
                 parameterDbo.ParameterName = ParameterName;
                 parameterDbo.GroupId = SelectedGroup?.Id ?? parameterDbo.GroupId;
+                parameterDbo.TypeId = SelectedTypeId;
+                parameterDbo.Value = Value;
             }
 
             // Сохраняем изменения в файл

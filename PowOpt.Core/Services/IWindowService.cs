@@ -7,6 +7,11 @@ namespace PowOpt.Core.Services
 {
     public interface IWindowService
     {
-        void ShowEditParameterWindow(ParameterViewModel parameter, ObservableCollection<GroupViewModel> availableGroups, IProjectRepository projectRepository, string filePath, ProjectDataDbo projectData);
+        void ShowEditParameterWindow(ParameterViewModel parameter,
+                                     ObservableCollection<GroupViewModel> availableGroups,
+                                     ObservableCollection<ParameterTypeDbo> availableTypes,
+                                     IProjectRepository projectRepository,
+                                     string filePath,
+                                     ProjectDataDbo projectData);
     }
 }

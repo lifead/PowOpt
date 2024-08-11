@@ -8,11 +8,16 @@ namespace PowOpt.Services
 {
     public class WindowService : IWindowService
     {
-        public void ShowEditParameterWindow(ParameterViewModel parameter, ObservableCollection<GroupViewModel> availableGroups, IProjectRepository projectRepository, string filePath, ProjectDataDbo projectData)
+        public void ShowEditParameterWindow(ParameterViewModel parameter,
+                                            ObservableCollection<GroupViewModel> availableGroups,
+                                            ObservableCollection<ParameterTypeDbo> availableTypes,
+                                            IProjectRepository projectRepository,
+                                            string filePath,
+                                            ProjectDataDbo projectData)
         {
             var editParameterWindow = new EditParameterWindow
             {
-                DataContext = new EditParameterViewModel(parameter, availableGroups, projectRepository, filePath, projectData)
+                DataContext = new EditParameterViewModel(parameter, availableGroups, availableTypes, projectRepository, filePath, projectData)
             };
 
             editParameterWindow.ShowDialog();

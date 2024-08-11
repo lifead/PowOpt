@@ -10,15 +10,17 @@ namespace PowOpt.Core.Services
         {
             var displayGroups = projectData.Groups.Select(group => new GroupViewModel
             {
-                GroupName = group.GroupName,
                 Id = group.Id,
+                GroupName = group.GroupName,
                 Items = projectData.Parameters
                     .Where(param => param.GroupId == group.Id)
                     .Select(param => new ParameterViewModel
                     {
                         Id = param.Id,
                         ParameterName = param.ParameterName,
-                        GroupId = param.GroupId  // Установка GroupId
+                        GroupId = param.GroupId,
+                        TypeId = param.TypeId,  // Устанавливаем TypeId
+                        Value = param.Value     // Устанавливаем Value
                     })
                     .ToList()
             }).ToList();

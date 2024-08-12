@@ -30,6 +30,7 @@ namespace PowOpt.Core.ViewModels
             {
                 this.RaiseAndSetIfChanged(ref _rowCount, value);
                 UpdateRectangleSize();
+                UpdateFragments();
             }
         }
 
@@ -41,6 +42,7 @@ namespace PowOpt.Core.ViewModels
             {
                 this.RaiseAndSetIfChanged(ref _columnCount, value);
                 UpdateRectangleSize();
+                UpdateFragments();
             }
         }
 
@@ -67,6 +69,9 @@ namespace PowOpt.Core.ViewModels
             set => this.RaiseAndSetIfChanged(ref _selectedMatrixBlock, value);
         }
 
+        // Коллекция для хранения данных о вложенных прямоугольниках
+        public ObservableCollection<RectangleInfo> Rectangles { get; set; } = new ObservableCollection<RectangleInfo>();
+
         public ReactiveCommand<Unit, Unit> SaveCommand { get; }
 
         public EditMatrixViewModel(IProjectRepository projectRepository)
@@ -89,12 +94,28 @@ namespace PowOpt.Core.ViewModels
                     MatrixBlocks.Add(block);
                 }
             }
+
+            UpdateFragments();
         }
 
         private void UpdateRectangleSize()
         {
             RectangleWidth = RowCount * 40;
             RectangleHeight = ColumnCount * 40;
+        }
+
+        private void UpdateFragments()
+        {
+            Rectangles.Clear();
+            foreach (var block in MatrixBlocks)
+            {
+                double startX = block.StartFragmentX * 40;
+                double startY = block.StartFragmentY * 40;
+                double endX = (block.EndFragmentX + 1) * 40;
+                double endY = (block.EndFragmentY + 1) * 40;
+
+                Rectangles.Add(new RectangleInfo(startX, startY, endX - startX, endY - startY, block.FragmentName));
+            }
         }
 
         private void Save()

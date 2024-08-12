@@ -21,13 +21,15 @@
             <TextBox Text="{Binding ColumnCount}" Width="50" VerticalAlignment="Center"/>
         </StackPanel>
 
-        <!-- Блок, разделенный на 2 части -->
+        <!-- Блок, разделенный на 3 части -->
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200"/>
                 <!-- Левая часть, список с фиксированной шириной -->
+                <ColumnDefinition Width="200"/>
+                <!-- Средняя часть для отображения деталей блока -->
                 <ColumnDefinition Width="*"/>
-                <!-- Правая часть -->
+                <!-- Правая часть для отображения символического вида матрицы -->
             </Grid.ColumnDefinitions>
 
             <!-- Список в левой части -->
@@ -36,12 +38,63 @@
                      DisplayMemberPath="FragmentName"
                      SelectedItem="{Binding SelectedMatrixBlock, Mode=TwoWay}"/>
 
-            <!-- Правая часть для отображения прямоугольника -->
-            <StackPanel x:Name="AdditionalContentPanel" Grid.Column="1" Margin="10">
+            <!-- Правая часть с выводом всех значений MatrixBlockDbo, разделенная по горизонтали -->
+            <StackPanel x:Name="BlockDetailsPanel" Grid.Column="1" Margin="10">
+                <TextBlock Text="Fragment Name:" FontWeight="Bold"/>
+                <TextBox Text="{Binding SelectedMatrixBlock.FragmentName}" IsReadOnly="True" Margin="0,0,0,10"/>
+
+                <TextBlock Text="Type Fragment:" FontWeight="Bold"/>
+                <TextBox Text="{Binding SelectedMatrixBlock.TypeFragment}" IsReadOnly="True" Margin="0,0,0,10"/>
+
+                <TextBlock Text="Start Fragment X:" FontWeight="Bold"/>
+                <TextBox Text="{Binding SelectedMatrixBlock.StartFragmentX}" IsReadOnly="True" Margin="0,0,0,10"/>
+
+                <TextBlock Text="Start Fragment Y:" FontWeight="Bold"/>
+                <TextBox Text="{Binding SelectedMatrixBlock.StartFragmentY}" IsReadOnly="True" Margin="0,0,0,10"/>
+
+                <TextBlock Text="End Fragment X:" FontWeight="Bold"/>
+                <TextBox Text="{Binding SelectedMatrixBlock.EndFragmentX}" IsReadOnly="True" Margin="0,0,0,10"/>
+
+                <TextBlock Text="End Fragment Y:" FontWeight="Bold"/>
+                <TextBox Text="{Binding SelectedMatrixBlock.EndFragmentY}" IsReadOnly="True" Margin="0,0,0,10"/>
+
+                <TextBlock Text="Formula Values:" FontWeight="Bold"/>
+                <TextBox Text="{Binding SelectedMatrixBlock.FormulaValues}" IsReadOnly="True" Margin="0,0,0,10"/>
+
+                <TextBlock Text="Is Diagonal Matrix:" FontWeight="Bold"/>
+                <CheckBox IsChecked="{Binding SelectedMatrixBlock.IsDiagonalMatrix}" IsEnabled="False"/>
+            </StackPanel>
+
+            <!-- Правая часть для отображения символического вида матрицы -->
+            <StackPanel x:Name="AdditionalContentPanel" Grid.Column="2" Margin="10">
                 <TextBlock Text="Символический вид матрицы" FontWeight="Bold" Margin="0,0,0,10"/>
-                <Rectangle Fill="Red"
-                           Width="{Binding RectangleWidth}"
-                           Height="{Binding RectangleHeight}"/>
+                <Canvas Width="{Binding RectangleWidth}" Height="{Binding RectangleHeight}" Background="Red">
+                    <ItemsControl ItemsSource="{Binding Rectangles}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <Canvas />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Width="{Binding Width}"
+                                      Height="{Binding Height}"
+                                      Canvas.Left="{Binding X}"
+                                      Canvas.Top="{Binding Y}">
+                                    <Rectangle Stroke="Black"
+                                               StrokeThickness="1"
+                                               Fill="Transparent"/>
+                                    <!-- Прямоугольник без заливки -->
+                                    <TextBlock Text="{Binding FragmentName}"
+                                               Foreground="Black"
+                                               FontWeight="Bold"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Canvas>
             </StackPanel>
         </Grid>
 

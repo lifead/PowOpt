@@ -36,47 +36,13 @@
                      DisplayMemberPath="FragmentName"
                      SelectedItem="{Binding SelectedMatrixBlock, Mode=TwoWay}"/>
 
-            <!-- Правая часть с выводом всех значений MatrixBlockDbo, разделенная по горизонтали -->
-            <Grid x:Name="RightContent" Grid.Column="1" Margin="10">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="200"/>
-                    <!-- Левая часть с деталями блока -->
-                    <ColumnDefinition Width="*"/>
-                    <!-- Правая часть -->
-                </Grid.ColumnDefinitions>
-
-                <!-- Левая часть с деталями выделенного блока -->
-                <StackPanel x:Name="BlockDetailsPanel" Grid.Column="0" Margin="10">
-                    <TextBlock Text="Fragment Name:" FontWeight="Bold"/>
-                    <TextBox Text="{Binding SelectedMatrixBlock.FragmentName}" IsReadOnly="True" Margin="0,0,0,10"/>
-
-                    <TextBlock Text="Type Fragment:" FontWeight="Bold"/>
-                    <TextBox Text="{Binding SelectedMatrixBlock.TypeFragment}" IsReadOnly="True" Margin="0,0,0,10"/>
-
-                    <TextBlock Text="Start Fragment X:" FontWeight="Bold"/>
-                    <TextBox Text="{Binding SelectedMatrixBlock.StartFragmentX}" IsReadOnly="True" Margin="0,0,0,10"/>
-
-                    <TextBlock Text="Start Fragment Y:" FontWeight="Bold"/>
-                    <TextBox Text="{Binding SelectedMatrixBlock.StartFragmentY}" IsReadOnly="True" Margin="0,0,0,10"/>
-
-                    <TextBlock Text="End Fragment X:" FontWeight="Bold"/>
-                    <TextBox Text="{Binding SelectedMatrixBlock.EndFragmentX}" IsReadOnly="True" Margin="0,0,0,10"/>
-
-                    <TextBlock Text="End Fragment Y:" FontWeight="Bold"/>
-                    <TextBox Text="{Binding SelectedMatrixBlock.EndFragmentY}" IsReadOnly="True" Margin="0,0,0,10"/>
-
-                    <TextBlock Text="Formula Values:" FontWeight="Bold"/>
-                    <TextBox Text="{Binding SelectedMatrixBlock.FormulaValues}" IsReadOnly="True" Margin="0,0,0,10"/>
-
-                    <TextBlock Text="Is Diagonal Matrix:" FontWeight="Bold"/>
-                    <CheckBox IsChecked="{Binding SelectedMatrixBlock.IsDiagonalMatrix}" IsEnabled="False"/>
-                </StackPanel>
-
-                <!-- Правая часть для будущего использования -->
-                <Border x:Name="AdditionalContentPanel" Grid.Column="1" BorderBrush="Gray" BorderThickness="1" Margin="10">
-                    <!-- Здесь можно добавить элементы или другой контент -->
-                </Border>
-            </Grid>
+            <!-- Правая часть для отображения прямоугольника -->
+            <StackPanel x:Name="AdditionalContentPanel" Grid.Column="1" Margin="10">
+                <TextBlock Text="Символический вид матрицы" FontWeight="Bold" Margin="0,0,0,10"/>
+                <Rectangle Fill="Red"
+                           Width="{Binding RectangleWidth}"
+                           Height="{Binding RectangleHeight}"/>
+            </StackPanel>
         </Grid>
 
         <!-- Кнопка "Сохранить" -->

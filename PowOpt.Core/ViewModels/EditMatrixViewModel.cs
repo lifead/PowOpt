@@ -26,14 +26,36 @@ namespace PowOpt.Core.ViewModels
         public int RowCount
         {
             get => _rowCount;
-            set => this.RaiseAndSetIfChanged(ref _rowCount, value);
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _rowCount, value);
+                UpdateRectangleSize();
+            }
         }
 
         private int _columnCount;
         public int ColumnCount
         {
             get => _columnCount;
-            set => this.RaiseAndSetIfChanged(ref _columnCount, value);
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _columnCount, value);
+                UpdateRectangleSize();
+            }
+        }
+
+        private double _rectangleWidth;
+        public double RectangleWidth
+        {
+            get => _rectangleWidth;
+            private set => this.RaiseAndSetIfChanged(ref _rectangleWidth, value);
+        }
+
+        private double _rectangleHeight;
+        public double RectangleHeight
+        {
+            get => _rectangleHeight;
+            private set => this.RaiseAndSetIfChanged(ref _rectangleHeight, value);
         }
 
         public ObservableCollection<MatrixBlockDbo> MatrixBlocks { get; set; } = new ObservableCollection<MatrixBlockDbo>();
@@ -42,14 +64,8 @@ namespace PowOpt.Core.ViewModels
         public MatrixBlockDbo SelectedMatrixBlock
         {
             get => _selectedMatrixBlock;
-            set
-            {
-                this.RaiseAndSetIfChanged(ref _selectedMatrixBlock, value);
-                this.RaisePropertyChanged(nameof(SelectedFragmentName));
-            }
+            set => this.RaiseAndSetIfChanged(ref _selectedMatrixBlock, value);
         }
-
-        public string SelectedFragmentName => SelectedMatrixBlock?.FragmentName;
 
         public ReactiveCommand<Unit, Unit> SaveCommand { get; }
 
@@ -73,6 +89,12 @@ namespace PowOpt.Core.ViewModels
                     MatrixBlocks.Add(block);
                 }
             }
+        }
+
+        private void UpdateRectangleSize()
+        {
+            RectangleWidth = RowCount * 40;
+            RectangleHeight = ColumnCount * 40;
         }
 
         private void Save()

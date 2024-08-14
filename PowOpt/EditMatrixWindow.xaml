@@ -38,7 +38,7 @@
                      DisplayMemberPath="FragmentName"
                      SelectedItem="{Binding SelectedMatrixBlock, Mode=TwoWay}"/>
 
-            <!-- Правая часть с выводом всех значений MatrixBlockDbo, разделенная по горизонтали -->
+            <!-- Средняя часть с выводом всех значений MatrixBlockDbo -->
             <StackPanel x:Name="BlockDetailsPanel" Grid.Column="1" Margin="10">
                 <TextBlock Text="Fragment Name:" FontWeight="Bold"/>
                 <TextBox Text="{Binding SelectedMatrixBlock.FragmentName}" IsReadOnly="True" Margin="0,0,0,10"/>
@@ -77,20 +77,28 @@
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Grid Width="{Binding Width}"
-                                      Height="{Binding Height}"
-                                      Canvas.Left="{Binding X}"
-                                      Canvas.Top="{Binding Y}">
+                                <Canvas>
+                                    <!-- Прямоугольник -->
                                     <Rectangle Stroke="Black"
-                                               StrokeThickness="1"
-                                               Fill="Transparent"/>
-                                    <!-- Прямоугольник без заливки -->
+                                       StrokeThickness="1"
+                                       Fill="Transparent" 
+                                       Width="{Binding Width}"
+                                       Height="{Binding Height}"
+                                       Canvas.Left="{Binding X}"
+                                       Canvas.Top="{Binding Y}"
+                                       Canvas.ZIndex="{Binding ZIndex}"/>
+                                    <!-- Текст внутри прямоугольника -->
                                     <TextBlock Text="{Binding FragmentName}"
-                                               Foreground="Black"
-                                               FontWeight="Bold"
-                                               HorizontalAlignment="Center"
-                                               VerticalAlignment="Center"/>
-                                </Grid>
+                                       Foreground="Black"
+                                       FontWeight="Bold"
+                                       Width="{Binding Width}"
+                                       Height="{Binding Height}"
+                                       TextAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       Canvas.Left="{Binding X}"
+                                       Canvas.Top="{Binding Y}"
+                                       Canvas.ZIndex="{Binding ZIndex}"/>           
+                                </Canvas>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>

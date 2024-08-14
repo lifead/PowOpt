@@ -20,10 +20,10 @@
     {
       "FragmentName": "A2",
       "TypeFragment": "Standard",
-      "StartFragmentX": 1,
-      "StartFragmentY": 0,
-      "EndFragmentX": 1,
-      "EndFragmentY": 2,
+      "StartFragmentX": 3,
+      "StartFragmentY": 3,
+      "EndFragmentX": 4,
+      "EndFragmentY": 4,
       "FormulaValues": "",
       "IsDiagonalMatrix": false,
       "Values": [

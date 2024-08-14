@@ -107,6 +107,7 @@ namespace PowOpt.Core.ViewModels
         private void UpdateFragments()
         {
             Rectangles.Clear();
+            int zIndex = 0; // Начальный индекс
             foreach (var block in MatrixBlocks)
             {
                 double startX = block.StartFragmentX * 40;
@@ -114,7 +115,11 @@ namespace PowOpt.Core.ViewModels
                 double endX = (block.EndFragmentX + 1) * 40;
                 double endY = (block.EndFragmentY + 1) * 40;
 
-                Rectangles.Add(new RectangleInfo(startX, startY, endX - startX, endY - startY, block.FragmentName));
+                // Временный вывод для отладки
+                Console.WriteLine($"Fragment: {block.FragmentName}, X: {startX}, Y: {startY}, Width: {endX - startX}, Height: {endY - startY}");
+
+                Rectangles.Add(new RectangleInfo(startX, startY, endX - startX, endY - startY, block.FragmentName, zIndex));
+                zIndex++; // Увеличиваем ZIndex для следующего фрагмента
             }
         }
 

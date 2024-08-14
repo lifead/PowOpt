@@ -2,6 +2,7 @@
 using PowOpt.Core.Repositories;
 using ReactiveUI;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Reactive;
 
 namespace PowOpt.Core.ViewModels
@@ -16,11 +17,11 @@ namespace PowOpt.Core.ViewModels
         public string FilePath
         {
             get => _filePath;
-            set 
+            set
             {
                 this.RaiseAndSetIfChanged(ref _filePath, value);
                 LoadMatrixData();
-            } 
+            }
         }
 
         private int _rowCount;
@@ -73,6 +74,7 @@ namespace PowOpt.Core.ViewModels
                 UpdateRectangleColor(value);
             }
         }
+
         // Коллекция для хранения данных о вложенных прямоугольниках
         public ObservableCollection<RectangleInfo> Rectangles { get; set; } = new ObservableCollection<RectangleInfo>();
 
@@ -83,6 +85,7 @@ namespace PowOpt.Core.ViewModels
             _projectRepository = projectRepository;
             SaveCommand = ReactiveCommand.Create(Save);
         }
+
         public void LoadMatrixData()
         {
             _matrixData = _projectRepository.LoadMatrixData(FilePath);

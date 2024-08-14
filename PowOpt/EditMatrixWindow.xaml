@@ -94,17 +94,22 @@
 
                 <!-- Дополнительный компонент с таблицей -->
                 <DataGrid ItemsSource="{Binding FilteredValues}" 
-                      AutoGenerateColumns="False"
-                      Margin="0,20,0,0" 
-                      HorizontalAlignment="Stretch"
-                      VerticalAlignment="Center"
-                      HeadersVisibility="None"
-                      GridLinesVisibility="All">    
+          AutoGenerateColumns="False"
+          Margin="0,20,0,0" 
+          HorizontalAlignment="Stretch"
+          VerticalAlignment="Center"
+          HeadersVisibility="None"
+          GridLinesVisibility="All">
+                    <DataGrid.Resources>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="Padding" Value="5"/>
+                            <Setter Property="TextBlock.TextAlignment" Value="Center"/>
+                        </Style>
+                    </DataGrid.Resources>
                     <DataGrid.Columns>
-                        <DataGridTextColumn Binding="{Binding [0]}" Width="*"/>
-                        <DataGridTextColumn Binding="{Binding [1]}" Width="*"/>
-                        <DataGridTextColumn Binding="{Binding [2]}" Width="*"/>
-                        <!-- Добавьте дополнительные столбцы, если в массиве больше 3 элементов -->
+                        <DataGridTextColumn Binding="{Binding [0]}" Width="*" />
+                        <DataGridTextColumn Binding="{Binding [1]}" Width="*" />
+                        <DataGridTextColumn Binding="{Binding [2]}" Width="*" />
                     </DataGrid.Columns>
                 </DataGrid>
             </StackPanel>

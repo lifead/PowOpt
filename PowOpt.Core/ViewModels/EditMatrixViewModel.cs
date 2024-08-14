@@ -80,7 +80,7 @@ namespace PowOpt.Core.ViewModels
             {
                 this.RaiseAndSetIfChanged(ref _selectedMatrixBlock, value);
                 UpdateRectangleColor(value);
-                UpdateFilteredValues(value.Values);
+                UpdateFilteredValues(value?.Values);
             }
         }
 
@@ -97,21 +97,22 @@ namespace PowOpt.Core.ViewModels
 
         private void UpdateFilteredValues(string[][] values)
         {
-            if (values == null)
+            if (values == null || values.Length == 0)
             {
                 FilteredValues = new ObservableCollection<ObservableCollection<string>>();
                 return;
             }
 
+            // Заполняем пропущенные значения пустыми строками, если необходимо
             var filtered = values
-                .Where(row => row.Any(cell => !string.IsNullOrWhiteSpace(cell))) // Фильтрация пустых строк
-                .Select(row => row
-                    .Where(cell => !string.IsNullOrWhiteSpace(cell)) // Фильтрация пустых столбцов
-                    .ToObservableCollection())
+                .Where(row => row.Any(cell => !string.IsNullOrWhiteSpace(cell)))
+                .Select(row => row.Concat(Enumerable.Repeat(string.Empty, Math.Max(0, 3 - row.Length))) // Делаем строку длиной не меньше 3
+                                  .ToObservableCollection())
                 .ToObservableCollection();
 
             FilteredValues = filtered;
         }
+
 
         public void LoadMatrixData()
         {

@@ -9,6 +9,7 @@ namespace PowOpt.Core.Models
         public int GroupId { get; set; }
         public int TypeId { get; set; }
         public string Value { get; set; }  // Значение параметра
+        public decimal CalculatedValue { get; set; }  // Значение параметра
     }
 
     public class GroupViewModel : ReactiveObject

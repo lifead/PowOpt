@@ -10,16 +10,17 @@ namespace PowOpt.Core.ViewModels
     {
         private readonly IProjectRepository _projectRepository;
         private MatrixDataDbo _matrixData;
+        private RectangleInfo _selectedRectangle; // Для отслеживания предыдущего выбранного прямоугольника
 
         private string _filePath;
         public string FilePath
         {
             get => _filePath;
-            set
+            set 
             {
-                _filePath = value;
+                this.RaiseAndSetIfChanged(ref _filePath, value);
                 LoadMatrixData();
-            }
+            } 
         }
 
         private int _rowCount;
@@ -66,9 +67,12 @@ namespace PowOpt.Core.ViewModels
         public MatrixBlockDbo SelectedMatrixBlock
         {
             get => _selectedMatrixBlock;
-            set => this.RaiseAndSetIfChanged(ref _selectedMatrixBlock, value);
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _selectedMatrixBlock, value);
+                UpdateRectangleColor(value);
+            }
         }
-
         // Коллекция для хранения данных о вложенных прямоугольниках
         public ObservableCollection<RectangleInfo> Rectangles { get; set; } = new ObservableCollection<RectangleInfo>();
 
@@ -79,8 +83,7 @@ namespace PowOpt.Core.ViewModels
             _projectRepository = projectRepository;
             SaveCommand = ReactiveCommand.Create(Save);
         }
-
-        private void LoadMatrixData()
+        public void LoadMatrixData()
         {
             _matrixData = _projectRepository.LoadMatrixData(FilePath);
             RowCount = _matrixData?.RowCount ?? 0;
@@ -107,7 +110,7 @@ namespace PowOpt.Core.ViewModels
         private void UpdateFragments()
         {
             Rectangles.Clear();
-            int zIndex = 0; // Начальный индекс
+            int zIndex = 0;
             foreach (var block in MatrixBlocks)
             {
                 double startX = block.StartFragmentX * 40;
@@ -115,11 +118,25 @@ namespace PowOpt.Core.ViewModels
                 double endX = (block.EndFragmentX + 1) * 40;
                 double endY = (block.EndFragmentY + 1) * 40;
 
-                // Временный вывод для отладки
-                Console.WriteLine($"Fragment: {block.FragmentName}, X: {startX}, Y: {startY}, Width: {endX - startX}, Height: {endY - startY}");
-
                 Rectangles.Add(new RectangleInfo(startX, startY, endX - startX, endY - startY, block.FragmentName, zIndex));
-                zIndex++; // Увеличиваем ZIndex для следующего фрагмента
+                zIndex++;
+            }
+        }
+
+        private void UpdateRectangleColor(MatrixBlockDbo selectedBlock)
+        {
+            if (_selectedRectangle != null)
+            {
+                // Возвращаем предыдущий выбранный блок к исходному состоянию
+                _selectedRectangle.Color = "Transparent";
+            }
+
+            // Находим текущий выбранный прямоугольник и меняем его цвет на зеленый
+            var rectangle = Rectangles.FirstOrDefault(r => r.FragmentName == selectedBlock?.FragmentName);
+            if (rectangle != null)
+            {
+                rectangle.Color = "Green";
+                _selectedRectangle = rectangle; // Сохраняем ссылку на текущий выбранный прямоугольник
             }
         }
 

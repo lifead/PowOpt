@@ -80,25 +80,26 @@
                                 <Canvas>
                                     <!-- Прямоугольник -->
                                     <Rectangle Stroke="Black"
-                                       StrokeThickness="1"
-                                       Fill="Transparent" 
-                                       Width="{Binding Width}"
-                                       Height="{Binding Height}"
-                                       Canvas.Left="{Binding X}"
-                                       Canvas.Top="{Binding Y}"
-                                       Canvas.ZIndex="{Binding ZIndex}"/>
-                                    <!-- Текст внутри прямоугольника -->
-                                    <TextBlock Text="{Binding FragmentName}"
-                                       Foreground="Black"
-                                       FontWeight="Bold"
-                                       Width="{Binding Width}"
-                                       Height="{Binding Height}"
-                                       TextAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       Canvas.Left="{Binding X}"
-                                       Canvas.Top="{Binding Y}"
-                                       Canvas.ZIndex="{Binding ZIndex}"/>           
+               StrokeThickness="1"
+               Fill="{Binding Color}" 
+                                        Width="{Binding Width}"
+               Height="{Binding Height}"
+               Canvas.Left="{Binding X}"
+               Canvas.Top="{Binding Y}"
+               Canvas.ZIndex="{Binding ZIndex}"/>
+                                        <!-- Текст внутри прямоугольника -->
+                                        <TextBlock Text="{Binding FragmentName}"
+               Foreground="Black"
+               FontWeight="Bold"
+               Width="{Binding Width}"
+               Height="{Binding Height}"
+               TextAlignment="Center"
+               VerticalAlignment="Center"
+               Canvas.Left="{Binding X}"
+               Canvas.Top="{Binding Y}"
+               Canvas.ZIndex="{Binding ZIndex}"/>
                                 </Canvas>
+
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>

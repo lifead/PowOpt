@@ -18,6 +18,6 @@
         public int EndFragmentY { get; set; }
         public string FormulaValues { get; set; }
         public bool IsDiagonalMatrix { get; set; }
-        public List<List<int>> Values { get; set; } // Массив значений внутри блока
+        public string[][] Values { get; set; } // Массив строковых значений внутри блока
     }
 }

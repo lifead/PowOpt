@@ -64,6 +64,14 @@ namespace PowOpt.Core.ViewModels
 
         public ObservableCollection<MatrixBlockDbo> MatrixBlocks { get; set; } = new ObservableCollection<MatrixBlockDbo>();
 
+        // Свойство для хранения обработанного массива Values
+        private ObservableCollection<ObservableCollection<string>> _filteredValues;
+        public ObservableCollection<ObservableCollection<string>> FilteredValues
+        {
+            get => _filteredValues;
+            set => this.RaiseAndSetIfChanged(ref _filteredValues, value);
+        }
+
         private MatrixBlockDbo _selectedMatrixBlock;
         public MatrixBlockDbo SelectedMatrixBlock
         {
@@ -72,6 +80,7 @@ namespace PowOpt.Core.ViewModels
             {
                 this.RaiseAndSetIfChanged(ref _selectedMatrixBlock, value);
                 UpdateRectangleColor(value);
+                UpdateFilteredValues(value.Values);
             }
         }
 
@@ -84,6 +93,24 @@ namespace PowOpt.Core.ViewModels
         {
             _projectRepository = projectRepository;
             SaveCommand = ReactiveCommand.Create(Save);
+        }
+
+        private void UpdateFilteredValues(string[][] values)
+        {
+            if (values == null)
+            {
+                FilteredValues = new ObservableCollection<ObservableCollection<string>>();
+                return;
+            }
+
+            var filtered = values
+                .Where(row => row.Any(cell => !string.IsNullOrWhiteSpace(cell))) // Фильтрация пустых строк
+                .Select(row => row
+                    .Where(cell => !string.IsNullOrWhiteSpace(cell)) // Фильтрация пустых столбцов
+                    .ToObservableCollection())
+                .ToObservableCollection();
+
+            FilteredValues = filtered;
         }
 
         public void LoadMatrixData()
@@ -150,6 +177,15 @@ namespace PowOpt.Core.ViewModels
             _matrixData.MatrixBlocks = new List<MatrixBlockDbo>(MatrixBlocks);
 
             _projectRepository.SaveMatrixData(FilePath, _matrixData);
+        }
+    }
+
+    // Вспомогательный метод расширения для преобразования в ObservableCollection
+    public static class Extensions
+    {
+        public static ObservableCollection<T> ToObservableCollection<T>(this IEnumerable<T> enumerable)
+        {
+            return new ObservableCollection<T>(enumerable);
         }
     }
 }

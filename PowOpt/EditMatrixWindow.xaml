@@ -2,7 +2,6 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Редактирование матрицы" Height="600" Width="1000">
-    <!-- Увеличение высоты формы на 100 пикселей -->
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -93,8 +92,21 @@
                     <CheckBox IsChecked="{Binding SelectedMatrixBlock.IsDiagonalMatrix}" IsEnabled="False" Grid.Row="7" Grid.Column="1"/>
                 </Grid>
 
-                <!-- Дополнительный компонент на всю ширину -->
-                <TextBlock Text="Дополнительный компонент" Margin="0,20,0,0" FontSize="14" HorizontalAlignment="Stretch" VerticalAlignment="Center" Background="LightGray"/>
+                <!-- Дополнительный компонент с таблицей -->
+                <DataGrid ItemsSource="{Binding FilteredValues}" 
+                      AutoGenerateColumns="False"
+                      Margin="0,20,0,0" 
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Center"
+                      HeadersVisibility="None"
+                      GridLinesVisibility="All">    
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding [0]}" Width="*"/>
+                        <DataGridTextColumn Binding="{Binding [1]}" Width="*"/>
+                        <DataGridTextColumn Binding="{Binding [2]}" Width="*"/>
+                        <!-- Добавьте дополнительные столбцы, если в массиве больше 3 элементов -->
+                    </DataGrid.Columns>
+                </DataGrid>
             </StackPanel>
 
             <!-- Правая часть для отображения символического вида матрицы -->

@@ -85,7 +85,7 @@
 
                     <!-- Седьмой ряд -->
                     <TextBlock Text="Formula Values:" FontWeight="Bold" Grid.Row="6" Grid.Column="0" VerticalAlignment="Center"/>
-                    <TextBox Text="{Binding SelectedMatrixBlock.FormulaValues}" IsReadOnly="True" Margin="0,0,0,10" Grid.Row="6" Grid.Column="1"/>
+                    <TextBox Text="{Binding SelectedMatrixBlock.Value}" IsReadOnly="True" Margin="0,0,0,10" Grid.Row="6" Grid.Column="1"/>
 
                     <!-- Восьмой ряд -->
                     <TextBlock Text="Is Diagonal Matrix:" FontWeight="Bold" Grid.Row="7" Grid.Column="0" VerticalAlignment="Center"/>

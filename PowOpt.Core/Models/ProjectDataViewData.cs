@@ -2,7 +2,7 @@
 
 namespace PowOpt.Core.Models
 {
-    public class ParameterViewModel : ReactiveObject
+    public class ParameterViewData : ReactiveObject
     {
         public int Id { get; set; }
         public string ParameterName { get; set; }
@@ -12,15 +12,15 @@ namespace PowOpt.Core.Models
         public decimal CalculatedValue { get; set; }  // Значение параметра
     }
 
-    public class GroupViewModel : ReactiveObject
+    public class GroupViewData : ReactiveObject
     {
         public int Id { get; set; }  // Идентификатор группы
         public string GroupName { get; set; }
-        public List<ParameterViewModel> Items { get; set; }
+        public List<ParameterViewData> Items { get; set; }
     }
 
-    public class ProjectDataViewModel
+    public class ProjectDataViewData
     {
-        public List<GroupViewModel> Groups { get; set; }
+        public List<GroupViewData> Groups { get; set; }
     }
 }

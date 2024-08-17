@@ -1,4 +1,6 @@
-﻿namespace PowOpt.Core.Models
+﻿using System.Text.Json.Serialization;
+
+namespace PowOpt.Core.Models
 {
     public class GroupDbo
     {
@@ -13,6 +15,9 @@
         public int GroupId { get; set; }
         public int TypeId { get; set; }  // Ссылка на идентификатор типа параметра
         public string Value { get; set; } // Значение параметра
+        
+        [JsonIgnore]
+        public decimal CalculatedValue { get; internal set; }
     }
 
     public class ProjectDataDbo

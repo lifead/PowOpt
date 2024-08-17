@@ -29,8 +29,8 @@ namespace PowOpt.Services
             editMatrixWindow.ShowDialog();
         }
 
-        public void ShowEditParameterWindow(ParameterViewModel parameter,
-                                            ObservableCollection<GroupViewModel> availableGroups,
+        public void ShowEditParameterWindow(ParameterViewData parameter,
+                                            ObservableCollection<GroupViewData> availableGroups,
                                             ObservableCollection<ParameterTypeDbo> availableTypes,
                                             IProjectRepository projectRepository,
                                             string filePath,

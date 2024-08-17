@@ -17,7 +17,7 @@ namespace PowOpt
             var viewModel = DataContext as MainViewModel;
             if (viewModel != null)
             {
-                viewModel.SelectedParameter = e.NewValue as ParameterViewModel;
+                viewModel.SelectedParameter = e.NewValue as ParameterViewData;
             }
         }
     }

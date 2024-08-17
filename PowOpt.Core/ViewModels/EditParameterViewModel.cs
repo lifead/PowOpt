@@ -11,7 +11,7 @@ namespace PowOpt.Core.ViewModels
     {
         private readonly IProjectRepository _projectRepository;
         private readonly string _filePath;
-        private readonly ParameterViewModel _parameter;
+        private readonly ParameterViewData _parameter;
         private readonly ProjectDataDbo _projectData;
 
         private string _parameterName;
@@ -23,8 +23,8 @@ namespace PowOpt.Core.ViewModels
 
         public int ParameterId { get; }
 
-        private GroupViewModel _selectedGroup;
-        public GroupViewModel SelectedGroup
+        private GroupViewData _selectedGroup;
+        public GroupViewData SelectedGroup
         {
             get => _selectedGroup;
             set => this.RaiseAndSetIfChanged(ref _selectedGroup, value);
@@ -44,13 +44,13 @@ namespace PowOpt.Core.ViewModels
             set => this.RaiseAndSetIfChanged(ref _selectedTypeId, value);
         }
 
-        public ObservableCollection<GroupViewModel> AvailableGroups { get; }
+        public ObservableCollection<GroupViewData> AvailableGroups { get; }
         public ObservableCollection<ParameterTypeDbo> AvailableTypes { get; }
 
         public ReactiveCommand<Unit, Unit> SaveCommand { get; }
 
-        public EditParameterViewModel(ParameterViewModel parameter,
-                                      ObservableCollection<GroupViewModel> availableGroups,
+        public EditParameterViewModel(ParameterViewData parameter,
+                                      ObservableCollection<GroupViewData> availableGroups,
                                       ObservableCollection<ParameterTypeDbo> availableTypes,
                                       IProjectRepository projectRepository,
                                       string filePath,

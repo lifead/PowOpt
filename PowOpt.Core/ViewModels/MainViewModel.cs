@@ -13,8 +13,8 @@ namespace PowOpt.Core.ViewModels
         private readonly DataTransformationService _dataTransformationService;
         private readonly IWindowService _windowService;
 
-        private ObservableCollection<GroupViewModel> _displayGroups;
-        public ObservableCollection<GroupViewModel> DisplayGroups
+        private ObservableCollection<GroupViewData> _displayGroups;
+        public ObservableCollection<GroupViewData> DisplayGroups
         {
             get => _displayGroups;
             set => this.RaiseAndSetIfChanged(ref _displayGroups, value);
@@ -22,7 +22,7 @@ namespace PowOpt.Core.ViewModels
 
         public ObservableCollection<ParameterTypeDbo> ParameterTypes { get; private set; }
 
-        public ParameterViewModel SelectedParameter { get; set; }
+        public ParameterViewData SelectedParameter { get; set; }
 
         public ReactiveCommand<Unit, Unit> OpenProjectCommand { get; }
         public ReactiveCommand<Unit, Unit> EditParameterCommand { get; }
@@ -36,7 +36,7 @@ namespace PowOpt.Core.ViewModels
             _dataTransformationService = dataTransformationService;
             _windowService = windowService;
 
-            DisplayGroups = new ObservableCollection<GroupViewModel>();
+            DisplayGroups = new ObservableCollection<GroupViewData>();
             ParameterTypes = new ObservableCollection<ParameterTypeDbo>();
 
             OpenProjectCommand = ReactiveCommand.Create(OpenProject);

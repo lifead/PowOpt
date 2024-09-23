@@ -1,50 +1,49 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using PowOpt.Core.Repositories;
+﻿using PowOpt.Core.Repositories;  // Пространство имен, где находятся ваши репозитории
 using PowOpt.Core.Services;
-using PowOpt.Core.ViewModels;
+using PowOpt.Core.ViewModels;  // Пространство имен, где находится ваш MainWindow
 using PowOpt.Services;
-using System;
 using System.Windows;
 
 namespace PowOpt
 {
-    public partial class App : Application
+    public partial class App : PrismApplication
     {
-        private IServiceProvider _serviceProvider;
-
-        protected override void OnStartup(StartupEventArgs e)
+        // Метод CreateShell отвечает за создание главного окна
+        protected override Window CreateShell()
         {
-            base.OnStartup(e);
-
-            // Настройка DI
-            var serviceCollection = new ServiceCollection();
-            ConfigureServices(serviceCollection);
-
-            _serviceProvider = serviceCollection.BuildServiceProvider();
-
-            // Создание и показ главного окна через DI
-            var mainWindow = _serviceProvider.GetRequiredService<MainWindow>();
-            mainWindow.Show();
+            try
+            {
+                var mainWindow = Container.Resolve<MainWindow>();
+                mainWindow.DataContext = Container.Resolve<MainViewModel>();
+                return mainWindow;
+            }
+            catch (Exception ex)
+            {
+                // Логирование или отображение ошибки
+                Console.WriteLine(ex.ToString());
+                throw;
+            }
         }
 
-        private void ConfigureServices(IServiceCollection services)
+        protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             // Регистрация зависимостей
-            services.AddSingleton<IProjectRepository, JsonProjectRepository>();
-            services.AddSingleton<DataTransformationService>(); // Регистрация DataTransformationService
-            services.AddSingleton<MainViewModel>();
-            services.AddSingleton<EditMatrixViewModel>();
-            services.AddSingleton<IWindowService, WindowService>();
+            containerRegistry.RegisterSingleton<IProjectRepository, JsonProjectRepository>();
+            containerRegistry.RegisterSingleton<DataTransformationService>();
+            containerRegistry.RegisterSingleton<IWindowService, WindowService>();
+            containerRegistry.RegisterSingleton<MainViewModel>();
+            containerRegistry.RegisterSingleton<EditMatrixViewModel>();
 
-            // Регистрация главного окна
-            services.AddTransient<MainWindow>(provider =>
-            {
-                var viewModel = provider.GetRequiredService<MainViewModel>();
-                return new MainWindow
-                {
-                    DataContext = viewModel
-                };
-            });
+            // Регистрация главного окна (если вам нужно передать DataContext через DI)
+            containerRegistry.Register<MainWindow>();
+        }
+
+        // Метод, отвечающий за инициализацию настроек по умолчанию
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+
+            // Например, вы можете задать начальные настройки здесь, если это нужно
         }
     }
 }

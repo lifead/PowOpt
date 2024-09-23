@@ -1,13 +1,11 @@
 ﻿using PowOpt.Core.Models;
 using PowOpt.Core.Repositories;
 using PowOpt.Core.Services;
-using ReactiveUI;
 using System.Collections.ObjectModel;
-using System.Reactive;
 
 namespace PowOpt.Core.ViewModels
 {
-    public class MainViewModel : ReactiveObject
+    public class MainViewModel : BindableBase
     {
         private readonly IProjectRepository _projectRepository;
         private readonly DataTransformationService _dataTransformationService;
@@ -17,16 +15,22 @@ namespace PowOpt.Core.ViewModels
         public ObservableCollection<GroupViewData> DisplayGroups
         {
             get => _displayGroups;
-            set => this.RaiseAndSetIfChanged(ref _displayGroups, value);
+            set => SetProperty(ref _displayGroups, value); // Prism's SetProperty для уведомления об изменениях
         }
 
         public ObservableCollection<ParameterTypeDbo> ParameterTypes { get; private set; }
 
-        public ParameterViewData SelectedParameter { get; set; }
+        private ParameterViewData _selectedParameter;
+        public ParameterViewData SelectedParameter
+        {
+            get => _selectedParameter;
+            set => SetProperty(ref _selectedParameter, value);
+        }
 
-        public ReactiveCommand<Unit, Unit> OpenProjectCommand { get; }
-        public ReactiveCommand<Unit, Unit> EditParameterCommand { get; }
-        public ReactiveCommand<Unit, Unit> EditMatrixCommand { get; }
+        // Замена ReactiveCommand на DelegateCommand
+        public DelegateCommand OpenProjectCommand { get; }
+        public DelegateCommand EditParameterCommand { get; }
+        public DelegateCommand EditMatrixCommand { get; }
 
         public MainViewModel(IProjectRepository projectRepository,
                              DataTransformationService dataTransformationService,
@@ -39,11 +43,14 @@ namespace PowOpt.Core.ViewModels
             DisplayGroups = new ObservableCollection<GroupViewData>();
             ParameterTypes = new ObservableCollection<ParameterTypeDbo>();
 
-            OpenProjectCommand = ReactiveCommand.Create(OpenProject);
-            EditParameterCommand = ReactiveCommand.Create(EditParameter);
-            EditMatrixCommand = ReactiveCommand.Create(OpenEditMatrixWindow);
+            // Инициализация команд DelegateCommand
+            OpenProjectCommand = new DelegateCommand(OpenProject);
+            EditParameterCommand = new DelegateCommand(EditParameter, CanEditParameter)
+                                    .ObservesProperty(() => SelectedParameter); // Команда зависит от SelectedParameter
+            EditMatrixCommand = new DelegateCommand(OpenEditMatrixWindow);
         }
 
+        // Метод для загрузки проекта
         private void OpenProject()
         {
             string filePath = "projectData.json";
@@ -67,6 +74,13 @@ namespace PowOpt.Core.ViewModels
             }
         }
 
+        // Проверка, можно ли редактировать параметр
+        private bool CanEditParameter()
+        {
+            return SelectedParameter != null;
+        }
+
+        // Метод для редактирования параметра
         private void EditParameter()
         {
             if (SelectedParameter == null) return;
@@ -88,6 +102,7 @@ namespace PowOpt.Core.ViewModels
             OpenProject();
         }
 
+        // Метод для открытия окна редактирования матрицы
         private void OpenEditMatrixWindow()
         {
             string matrixFilePath = "matrixData.json"; // Укажите путь к файлу данных матрицы

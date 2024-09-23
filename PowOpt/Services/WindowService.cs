@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using PowOpt.Core.Models;
+﻿using PowOpt.Core.Models;
 using PowOpt.Core.Repositories;
 using PowOpt.Core.Services;
 using PowOpt.Core.ViewModels;
@@ -9,17 +8,18 @@ namespace PowOpt.Services
 {
     public class WindowService : IWindowService
     {
-        private readonly IServiceProvider _serviceProvider;
+        private readonly IContainerProvider _containerProvider;
 
-        public WindowService(IServiceProvider serviceProvider)
+        // Заменяем IServiceProvider на IContainerProvider (Prism)
+        public WindowService(IContainerProvider containerProvider)
         {
-            _serviceProvider = serviceProvider;
+            _containerProvider = containerProvider;
         }
 
         public void ShowEditMatrixWindow(string filePath)
         {
-            // Получаем экземпляр EditMatrixViewModel через DI
-            var editMatrixViewModel = _serviceProvider.GetRequiredService<EditMatrixViewModel>();
+            // Получаем экземпляр EditMatrixViewModel через контейнер Prism
+            var editMatrixViewModel = _containerProvider.Resolve<EditMatrixViewModel>();
 
             // Устанавливаем параметры ViewModel (например, путь к файлу)
             editMatrixViewModel.FilePath = filePath;
@@ -36,7 +36,9 @@ namespace PowOpt.Services
                                             string filePath,
                                             ProjectDataDbo projectData)
         {
+            // Вручную создаем экземпляр EditParameterViewModel, так как у нас есть параметры
             var editParameterViewModel = new EditParameterViewModel(parameter, availableGroups, availableTypes, projectRepository, filePath, projectData);
+
             var editParameterWindow = new EditParameterWindow
             {
                 DataContext = editParameterViewModel

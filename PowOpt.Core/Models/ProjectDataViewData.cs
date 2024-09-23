@@ -1,22 +1,45 @@
-﻿using ReactiveUI;
+﻿using System.Collections.ObjectModel;
 
 namespace PowOpt.Core.Models
 {
-    public class ParameterViewData : ReactiveObject
+    public class ParameterViewData : BindableBase
     {
         public int Id { get; set; }
-        public string ParameterName { get; set; }
         public int GroupId { get; set; }
         public int TypeId { get; set; }
-        public string Value { get; set; }  // Значение параметра
-        public decimal CalculatedValue { get; set; }  // Значение параметра
+        public decimal CalculatedValue { get; set; }
+
+        private string _parameterName;
+        public string ParameterName
+        {
+            get => _parameterName;
+            set => SetProperty(ref _parameterName, value); // уведомление об изменении
+        }
+
+        private string _value;
+        public string Value
+        {
+            get => _value;
+            set => SetProperty(ref _value, value); // уведомление об изменении
+        }
     }
 
-    public class GroupViewData : ReactiveObject
+    public class GroupViewData : BindableBase
     {
         public int Id { get; set; }  // Идентификатор группы
         public string GroupName { get; set; }
-        public List<ParameterViewData> Items { get; set; }
+
+        private ObservableCollection<ParameterViewData> _items;
+        public ObservableCollection<ParameterViewData> Items
+        {
+            get => _items;
+            set => SetProperty(ref _items, value); // уведомление об изменении
+        }
+
+        public GroupViewData()
+        {
+            Items = new ObservableCollection<ParameterViewData>();
+        }
     }
 
     public class ProjectDataViewData

@@ -1,10 +1,13 @@
 ﻿using PowOpt.Core.Models;
 using PowOpt.Core.Repositories;
+using ReactiveUI;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Reactive;
 
 namespace PowOpt.Core.ViewModels
 {
-    public class EditParameterViewModel : BindableBase
+    public class EditParameterViewModel : ReactiveObject
     {
         private readonly IProjectRepository _projectRepository;
         private readonly string _filePath;
@@ -15,7 +18,7 @@ namespace PowOpt.Core.ViewModels
         public string ParameterName
         {
             get => _parameterName;
-            set => SetProperty(ref _parameterName, value); // Prism's SetProperty для уведомления об изменениях
+            set => this.RaiseAndSetIfChanged(ref _parameterName, value);
         }
 
         public int ParameterId { get; }
@@ -24,27 +27,27 @@ namespace PowOpt.Core.ViewModels
         public GroupViewData SelectedGroup
         {
             get => _selectedGroup;
-            set => SetProperty(ref _selectedGroup, value);
+            set => this.RaiseAndSetIfChanged(ref _selectedGroup, value);
         }
 
         private string _value;
         public string Value
         {
             get => _value;
-            set => SetProperty(ref _value, value);
+            set => this.RaiseAndSetIfChanged(ref _value, value);
         }
 
         private int _selectedTypeId;
         public int SelectedTypeId
         {
             get => _selectedTypeId;
-            set => SetProperty(ref _selectedTypeId, value);
+            set => this.RaiseAndSetIfChanged(ref _selectedTypeId, value);
         }
 
         public ObservableCollection<GroupViewData> AvailableGroups { get; }
         public ObservableCollection<ParameterTypeDbo> AvailableTypes { get; }
 
-        public DelegateCommand SaveCommand { get; }
+        public ReactiveCommand<Unit, Unit> SaveCommand { get; }
 
         public EditParameterViewModel(ParameterViewData parameter,
                                       ObservableCollection<GroupViewData> availableGroups,
@@ -64,11 +67,10 @@ namespace PowOpt.Core.ViewModels
             AvailableGroups = availableGroups;
             AvailableTypes = availableTypes;
 
-            SelectedGroup = AvailableGroups.FirstOrDefault(g => g.Id == parameter.GroupId) ?? throw new NullReferenceException("SelectedGroup is null");
+            SelectedGroup = AvailableGroups.FirstOrDefault(g => g.Id == parameter.GroupId);
             SelectedTypeId = parameter.TypeId;
 
-            // Инициализация команды Save
-            SaveCommand = new DelegateCommand(Save);
+            SaveCommand = ReactiveCommand.Create(Save);
         }
 
         private void Save()

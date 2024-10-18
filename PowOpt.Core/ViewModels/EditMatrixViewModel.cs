@@ -1,10 +1,13 @@
 ﻿using PowOpt.Core.Models;
 using PowOpt.Core.Repositories;
+using ReactiveUI;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Reactive;
 
 namespace PowOpt.Core.ViewModels
 {
-    public class EditMatrixViewModel : BindableBase
+    public class EditMatrixViewModel : ReactiveObject
     {
         private readonly IProjectRepository _projectRepository;
         private MatrixDataDbo _matrixData;
@@ -16,7 +19,7 @@ namespace PowOpt.Core.ViewModels
             get => _filePath;
             set
             {
-                SetProperty(ref _filePath, value);
+                this.RaiseAndSetIfChanged(ref _filePath, value);
                 LoadMatrixData();
             }
         }
@@ -27,7 +30,7 @@ namespace PowOpt.Core.ViewModels
             get => _rowCount;
             set
             {
-                SetProperty(ref _rowCount, value);
+                this.RaiseAndSetIfChanged(ref _rowCount, value);
                 UpdateRectangleSize();
                 UpdateFragments();
             }
@@ -39,7 +42,7 @@ namespace PowOpt.Core.ViewModels
             get => _columnCount;
             set
             {
-                SetProperty(ref _columnCount, value);
+                this.RaiseAndSetIfChanged(ref _columnCount, value);
                 UpdateRectangleSize();
                 UpdateFragments();
             }
@@ -49,14 +52,14 @@ namespace PowOpt.Core.ViewModels
         public double RectangleWidth
         {
             get => _rectangleWidth;
-            private set => SetProperty(ref _rectangleWidth, value);
+            private set => this.RaiseAndSetIfChanged(ref _rectangleWidth, value);
         }
 
         private double _rectangleHeight;
         public double RectangleHeight
         {
             get => _rectangleHeight;
-            private set => SetProperty(ref _rectangleHeight, value);
+            private set => this.RaiseAndSetIfChanged(ref _rectangleHeight, value);
         }
 
         public ObservableCollection<MatrixBlockDbo> MatrixBlocks { get; set; } = new ObservableCollection<MatrixBlockDbo>();
@@ -66,7 +69,7 @@ namespace PowOpt.Core.ViewModels
         public ObservableCollection<ObservableCollection<string>> FilteredValues
         {
             get => _filteredValues;
-            set => SetProperty(ref _filteredValues, value);
+            set => this.RaiseAndSetIfChanged(ref _filteredValues, value);
         }
 
         private MatrixBlockDbo _selectedMatrixBlock;
@@ -75,7 +78,7 @@ namespace PowOpt.Core.ViewModels
             get => _selectedMatrixBlock;
             set
             {
-                SetProperty(ref _selectedMatrixBlock, value);
+                this.RaiseAndSetIfChanged(ref _selectedMatrixBlock, value);
                 UpdateRectangleColor(value);
                 UpdateFilteredValues(value?.Values);
             }
@@ -84,12 +87,12 @@ namespace PowOpt.Core.ViewModels
         // Коллекция для хранения данных о вложенных прямоугольниках
         public ObservableCollection<RectangleInfo> Rectangles { get; set; } = new ObservableCollection<RectangleInfo>();
 
-        public DelegateCommand SaveCommand { get; }
+        public ReactiveCommand<Unit, Unit> SaveCommand { get; }
 
         public EditMatrixViewModel(IProjectRepository projectRepository)
         {
             _projectRepository = projectRepository;
-            SaveCommand = new DelegateCommand(Save);
+            SaveCommand = ReactiveCommand.Create(Save);
         }
 
         private void UpdateFilteredValues(string[][] values)
@@ -109,6 +112,7 @@ namespace PowOpt.Core.ViewModels
 
             FilteredValues = filtered;
         }
+
 
         public void LoadMatrixData()
         {

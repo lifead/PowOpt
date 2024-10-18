@@ -1,6 +1,8 @@
-﻿namespace PowOpt.Core.Models;
+﻿using ReactiveUI;
 
-public class RectangleInfo : BindableBase
+namespace PowOpt.Core.Models;
+
+public class RectangleInfo : ReactiveObject
 {
     public double X { get; set; }
     public double Y { get; set; }
@@ -13,7 +15,7 @@ public class RectangleInfo : BindableBase
     public string Color
     {
         get => _color;
-        set => SetProperty(ref _color, value); // уведомление об изменении
+        set => this.RaiseAndSetIfChanged(ref _color, value);
     }
 
     public RectangleInfo(double x, double y, double width, double height, string fragmentName, int zIndex)

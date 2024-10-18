@@ -1,5 +1,4 @@
 ﻿using PowOpt.Core.Models;
-using PowOpt.Core.ViewModels;
 
 namespace PowOpt.Core.Services
 {
@@ -21,7 +20,8 @@ namespace PowOpt.Core.Services
                         TypeId = param.TypeId,  // Устанавливаем TypeId
                         Value = param.Value,     // Устанавливаем Value
                         CalculatedValue = param.CalculatedValue  // Устанавливаем CalculatedValue
-                    }).ToObservableCollection()                    
+                    })
+                    .ToList()
             }).ToList();
 
             return new ProjectDataViewData

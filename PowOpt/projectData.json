@@ -16,48 +16,55 @@
   "Parameters": [
     {
       "Id": 1,
-      "ParameterName": "Параметр 1",
+      "ParameterName": "a",
       "GroupId": 1,
       "TypeId": 1,
       "Value": "10"
     },
     {
       "Id": 2,
-      "ParameterName": "Параметр 2",
+      "ParameterName": "b",
       "GroupId": 1,
       "TypeId": 2,
       "Value": "20.5"
     },
     {
       "Id": 3,
-      "ParameterName": "Параметр 3",
+      "ParameterName": "c",
       "GroupId": 1,
       "TypeId": 3,
       "Value": "x + y"
     },
     {
       "Id": 4,
+      "ParameterName": "d",
+      "GroupId": 1,
+      "TypeId": 3,
+      "Value": "x + y"
+    },
+    {
+      "Id": 5,
       "ParameterName": "Формула 1",
       "GroupId": 2,
       "TypeId": 3,
       "Value": "a * b"
     },
     {
-      "Id": 5,
+      "Id": 6,
       "ParameterName": "Формула 2",
       "GroupId": 2,
       "TypeId": 3,
       "Value": "c / d"
     },
     {
-      "Id": 6,
+      "Id": 7,
       "ParameterName": "График 1",
       "GroupId": 3,
       "TypeId": 2,
       "Value": "3.14"
     },
     {
-      "Id": 7,
+      "Id": 8,
       "ParameterName": "График 2",
       "GroupId": 3,
       "TypeId": 1,

@@ -20,8 +20,8 @@
     {
       "FragmentName": "A2",
       "TypeFragment": "Standard",
-      "StartFragmentX": 0,
-      "StartFragmentY": 3,
+      "StartFragmentX": 1,
+      "StartFragmentY": 4,
       "EndFragmentX": 2,
       "EndFragmentY": 5,
       "FormulaValues": "",

@@ -1,6 +1,8 @@
-﻿namespace PowOpt.Core.Services;
+﻿using PowOpt.Core.Models;
+
+namespace PowOpt.Core.Services;
 
 public interface IFormulaCalculationService
 {
-    decimal Calculate(string formula, Dictionary<string, decimal> variables);
+    public ProjectDataDbo Calculate(ProjectDataDbo projectData);
 }

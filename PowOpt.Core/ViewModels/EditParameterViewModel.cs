@@ -37,6 +37,14 @@ namespace PowOpt.Core.ViewModels
             set => this.RaiseAndSetIfChanged(ref _value, value);
         }
 
+        private decimal _calculatedValue;
+        public decimal CalculatedValue
+        {
+            get => _calculatedValue;
+            set => this.RaiseAndSetIfChanged(ref _calculatedValue, value);
+        }
+
+
         private int _selectedTypeId;
         public int SelectedTypeId
         {
@@ -64,6 +72,7 @@ namespace PowOpt.Core.ViewModels
             ParameterId = parameter.Id;
             ParameterName = parameter.ParameterName;
             Value = parameter.Value;
+            CalculatedValue = parameter.CalculatedValue;
             AvailableGroups = availableGroups;
             AvailableTypes = availableTypes;
 

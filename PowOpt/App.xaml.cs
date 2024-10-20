@@ -35,6 +35,9 @@ namespace PowOpt
             services.AddSingleton<MainViewModel>();
             services.AddSingleton<EditMatrixViewModel>();
             services.AddSingleton<IWindowService, WindowService>();
+            services.AddSingleton<IFormulaCalculationService, FormulaCalculationService>();
+
+            
 
             // Регистрация главного окна
             services.AddTransient<MainWindow>(provider =>

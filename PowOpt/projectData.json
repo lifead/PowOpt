@@ -33,14 +33,14 @@
       "ParameterName": "c",
       "GroupId": 1,
       "TypeId": 3,
-      "Value": "x + y"
+      "Value": "a + b"
     },
     {
       "Id": 4,
       "ParameterName": "d",
       "GroupId": 1,
       "TypeId": 3,
-      "Value": "x + y"
+      "Value": "a + b + b"
     },
     {
       "Id": 5,
@@ -54,7 +54,7 @@
       "ParameterName": "Формула 2",
       "GroupId": 2,
       "TypeId": 3,
-      "Value": "c / d"
+      "Value": "a / b"
     },
     {
       "Id": 7,

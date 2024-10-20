@@ -36,6 +36,10 @@ public class JsonProjectRepository : IProjectRepository
             {
                 parameter.CalculatedValue = _formulaCalculationService.Calculate(parameter.Value, variableDictionary);
             }
+            else if (parameter.TypeId == 1)
+            {
+                parameter.CalculatedValue = decimal.Parse(p.Value, CultureInfo.InvariantCulture);
+            }
         }
 
         return projectData;
